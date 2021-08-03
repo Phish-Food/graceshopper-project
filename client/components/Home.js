@@ -4,18 +4,16 @@ import { connect } from 'react-redux';
 /**
  * COMPONENT
  */
-export const Home = (props) => {
-	const { username } = props;
-	// const items = props.items;
+export const Home = ({ firstName, cart }) => {
 	// console.log('items => ', items);
 	return (
 		<div>
-			<h3>Welcome, {username}</h3>
-			{/* <ul>
-				{items.map((item) => (
+			<h3>Welcome, {firstName}</h3>
+			<ul>
+				{cart.items.map((item) => (
 					<li key={item.id}>{item.name}</li>
 				))}
-			</ul> */}
+			</ul>
 		</div>
 	);
 };
@@ -24,9 +22,11 @@ export const Home = (props) => {
  * CONTAINER
  */
 const mapState = (state) => {
+	const { firstName, cart } = state.auth;
 	return {
-		username: state.auth.username,
-		// items: state.items,
+		// username: state.auth.username,
+		firstName,
+		cart,
 	};
 };
 

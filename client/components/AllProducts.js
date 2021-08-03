@@ -8,6 +8,7 @@ export class AllProducts extends Component {
 	}
 	render() {
 		const { items } = this.props;
+		console.log(items);
 		return (
 			<div>
 				<ul>
