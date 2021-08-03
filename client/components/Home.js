@@ -6,10 +6,15 @@ import {connect} from 'react-redux'
  */
 export const Home = props => {
   const {username} = props
-
+  const items = props.items.allItems
   return (
     <div>
       <h3>Welcome, {username}</h3>
+      <ul>
+        {items.map(item => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
     </div>
   )
 }
