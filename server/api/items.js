@@ -26,7 +26,7 @@ router.get('/:itemId', async (req, res, next) => {
 }
 })
 
-router.post('/:productId', async (req, res, next) => {
+router.post('/:itemId', async (req, res, next) => {
   try {
     let item = await Item.findByPk(req.params.itemId)
 
