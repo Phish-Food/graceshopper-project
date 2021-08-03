@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
+const cookieParser = require("cookie-parser");
+
 module.exports = app
 
 // logging middleware
@@ -9,6 +11,7 @@ app.use(morgan('dev'))
 
 // body parsing middleware
 app.use(express.json())
+app.use(cookieParser());
 
 // auth and api routes
 app.use('/auth', require('./auth'))
