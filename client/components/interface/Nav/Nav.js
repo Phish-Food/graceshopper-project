@@ -23,7 +23,8 @@ const Nav = ({ logout, isLoggedIn }) => {
 };
 
 const mapState = (state) => {
-  const isLoggedIn = !!state.auth.id;
+  const { auth } = state.auth;
+  const isLoggedIn = !!auth.id;
   return {
     isLoggedIn,
   };

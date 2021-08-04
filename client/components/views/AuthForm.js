@@ -1,10 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../redux/reducers/auth";
 
-/**
- * COMPONENT
- */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
