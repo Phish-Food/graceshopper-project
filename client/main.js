@@ -4,7 +4,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./style/global";
-import store from "./store";
+import store from "./redux/store";
 import { theme } from "./style/theme";
 import Main from "./components/interface/Main/Main";
 
