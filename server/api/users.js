@@ -4,7 +4,16 @@ const {
 } = require("../db");
 module.exports = router;
 
-router.get("/", async (req, res, next) => {
+const requireToken = async (req, res, next) => {
+  try {
+    req.user = await User.findByToken(req.cookies.token);
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+
+router.get("/", requireToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though

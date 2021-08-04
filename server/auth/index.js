@@ -4,15 +4,6 @@ const {
 } = require("../db");
 module.exports = router;
 
-const requireToken = async (req, res, next) => {
-  try {
-    req.user = await User.findByToken(req.cookies.token);
-    next();
-  } catch (e) {
-    next(e);
-  }
-};
-
 router.post("/login", async (req, res, next) => {
   try {
     const token = await User.authenticate(req.body);
@@ -38,9 +29,9 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.get("/me",requireToken, async (req, res, next) => {
+router.get("/me", async (req, res, next) => {
   try {
-    res.send(req.user);
+    res.send(await User.findByToken(req.cookies.token));
   } catch (ex) {
     next(ex);
   }
@@ -55,7 +46,7 @@ router.delete("/logout", async (req, res, next) => {
       res.cookie("token", "", { maxAge: 0 });
       console.log("Cookie Destroyed");
     }
-    res.send(204)
+    res.send(204);
   } catch (ex) {
     next(ex);
   }
