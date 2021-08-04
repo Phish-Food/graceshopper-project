@@ -4,16 +4,16 @@ import { StyledPortal } from "./Portal.styled";
 import { Login } from "../../views/AuthForm";
 import Loading from "../../views/Loading/Loading";
 
-export const Portal = ({ Component, props, auth, preCheck }) => {
+export const Portal = ({ Component, props, user, preCheck }) => {
   return (
     <StyledPortal>
       <main id="main-portal">
         {!preCheck ? (
           <Loading />
-        ) : !auth.id ? (
+        ) : !user.id ? (
           <Login />
         ) : (
-          <Component auth={auth} {...props} />
+          <Component user={user} {...props} />
         )}
       </main>
     </StyledPortal>

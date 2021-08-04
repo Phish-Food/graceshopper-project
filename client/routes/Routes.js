@@ -17,13 +17,13 @@ import All_Items from "../components/views/Item/All_Items/All_Items";
 import Item_Item from "../components/views/Item/Item_Item/Item_Item";
 import Single_Item from "../components/views/Item/Single_Item/Single_Item";
 
-const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
+const Routes = ({ getMe, isLoggedIn, open, preCheck, user }) => {
   useEffect(() => {
     getMe();
   }, [isLoggedIn]);
 
   const renderer = (Component, props) => (
-    <Portal {...{ Component, props, open, preCheck, auth }} />
+    <Portal {...{ Component, props, open, preCheck, user }} />
   );
 
   return (
@@ -48,7 +48,7 @@ const mapState = (state) => {
   const isLoggedIn = !!auth.id;
   return {
     isLoggedIn,
-    auth,
+    user: auth,
     preCheck,
   };
 };
