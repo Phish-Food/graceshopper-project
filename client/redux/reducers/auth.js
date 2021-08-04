@@ -1,9 +1,6 @@
 import axios from "axios";
 import history from "../../utils/history";
 
-/**
- * ACTION TYPES
- */
 const SET_AUTH = "SET_AUTH";
 const RESET_AUTH = "RESET_AUTH";
 const SET_PRE_CHECK_FAILED = "SET_PRE_CHECK_FAILED";
@@ -15,14 +12,7 @@ const INITIAL_STATE = {
   preCheck: false,
 };
 
-/**
- * ACTION CREATORS
- */
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
-
-/**
- * THUNK CREATORS
- */
 
 export const setLogin = (loggedIn) => {
   return {
@@ -72,9 +62,6 @@ export const resetAuth = () => async (dispatch) => {
   }
 };
 
-/**
- * REDUCER
- */
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_LOGIN:

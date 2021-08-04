@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { StyledMain } from "./Main.styled";
 import Routes from "../../routes/Routes";
 import Nav from "../interface/Nav/Nav";
 import Burger from "../utils/Burger/Burger";
 import Menu from "../views/Menu/Menu";
 import Footer from "../interface/Footer/Footer";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const Main = () => {
   const [open, setOpen] = useState(false);
@@ -30,8 +29,4 @@ const Main = () => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

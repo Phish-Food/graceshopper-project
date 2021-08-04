@@ -1,17 +1,13 @@
 import axios from "axios";
 
-//action type
 const GOT_ITEMS = "GOT_ITEMS";
 
-//ACTION creator
 const setItems = (items) => {
   return {
     type: GOT_ITEMS,
     items,
   };
 };
-
-//Thunk
 
 export const fetchAllItemsThunk = () => {
   return async (dispatch) => {

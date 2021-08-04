@@ -21,9 +21,11 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
   useEffect(() => {
     getMe();
   }, [isLoggedIn]);
-  function renderer(Component, props) {
-    return <Portal {...{ Component, open, props, preCheck, auth }} />;
-  }
+
+  const renderer = (Component, props) => (
+    <Portal {...{ Component, open, props, preCheck, auth }} />
+  );
+
   return (
     <div>
       {isLoggedIn ? (
@@ -43,14 +45,14 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 
 const mapState = (state) => {
   const { auth, preCheck } = state.auth;
-  const isLoggedIn = !!state.auth.auth.id;
-  console.log(auth, preCheck, isLoggedIn);
+  const isLoggedIn = !!auth.id;
   return {
     isLoggedIn,
     auth,
     preCheck,
   };
 };
+
 const mapDispatch = (dispatch) => {
   return {
     getMe() {

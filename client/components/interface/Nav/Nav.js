@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { StyledNav } from "./Nav.styled";
 import Image from "../../utils/ImageComponent/Image";
 import { resetAuth } from "../../../redux/reducers/auth";
+
 const Nav = ({ logout, isLoggedIn }) => {
   return (
     <StyledNav>
