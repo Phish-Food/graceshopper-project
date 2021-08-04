@@ -6,7 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./style/global";
 import store from "./store";
 import { theme } from "./style/theme";
-import Main from "./components/Main/Main";
+import Main from "./components/interface/Main/Main";
 
 render(
   <Provider store={store}>

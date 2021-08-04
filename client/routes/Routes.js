@@ -23,7 +23,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
   }, [isLoggedIn]);
 
   const renderer = (Component, props) => (
-    <Portal {...{ Component, open, props, preCheck, auth }} />
+    <Portal {...{ Component, props, open, preCheck, auth }} />
   );
 
   return (

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { authenticate } from "../../../redux/reducers/auth";
-import Pixelize from "../../utils/Pixelize/Pixelize";
 import { StyledHome } from "./Home.styled";
 
 const Home = ({ auth }) => {
