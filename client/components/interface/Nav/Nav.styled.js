@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledNav = styled.nav`
+
   display: flex;
   justify-content: flex-end;
   align-items: right;
@@ -10,7 +11,7 @@ export const StyledNav = styled.nav`
   width: 100%;
   box-shadow: 0 1px 3px #5d5d637e;
   position: fixed;
-  z-index: 100;
+  z-index: 150;
   image {
     justify-content: flex-start;
     align-self: center;
