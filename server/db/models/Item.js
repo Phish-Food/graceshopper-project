@@ -16,7 +16,7 @@ const Item = db.define('item', {
 	},
 	description: TEXT,
 	price: {
-		type: FLOAT,
+		type: INTEGER,
 		allowNull: false,
 		get() {
 			const rawValue = this.getDataValue('price');
