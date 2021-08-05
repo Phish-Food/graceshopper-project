@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Item_Item = ({ item }) => {
 	return (
 		<StyledItem_Item>
-			<img src={item.imageUrl} />
+			<Link to={`/items/${item.id}`}> <img src={item.imageUrl}></img> </Link>
 			<ul>
 				<li>
 					<Link to={`/items/${item.id}`}>{item.name}</Link>
