@@ -3,28 +3,30 @@ import styled from "styled-components";
 export const StyledMenu = styled.aside`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  text-align: center;
+  justify-content: top;
   background: ${({ theme }) => theme.primaryLight};
-  height: ${`calc(100vh - 50px)`};
-  text-align: left;
+  height: ${`calc(100vh - 120px)`};
   box-shadow: inset 0 0 3px #5d5d637e;
   width: 0px;
   top: 80px;
   left: 0;
   z-index: 10;
-
   overflow: hidden;
   white-space: nowrap;
   transition: ${({ theme }) => theme.transitions.burger};
-  width: ${({ open }) => (open ? `${`calc(500px + 2rem)`}` : "0")};
+  width: ${({ open }) => (open ? `${`calc(200px + 2rem)`}` : "0")};
 
   div {
+    text-align: center;
     flex-direction: column;
-    h2 {
-      white-space: nowrap;
-    }
     section {
     }
+  }
+  div:hover{
+    border:solid;
+    font-weight:bold;
+    hover-weight: bold;
   }
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;

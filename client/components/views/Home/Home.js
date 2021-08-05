@@ -14,10 +14,11 @@ const Home = ({ auth }) => {
 			</header>
 			<section>
 				<div>
-					<h2>Cart:</h2>
-					{auth.cart.items.map((item) => (
+					{/* <h2>Cart:</h2>
+					{console.log('auth', auth)}
+					{auth.carts[auth.carts.length-1].items.map((item) => (
 						<Item_Item key={item.id} item={item} />
-					))}
+					))} */}
 				</div>
 			</section>
 		</StyledHome>
