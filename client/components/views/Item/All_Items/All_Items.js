@@ -9,7 +9,7 @@ const All_Items = ({ items, getAllItems }) => {
 	useEffect(() => {
 		getAllItems();
 	}, [items.length]);
-	console.log('items', items);
+
 	return (
 		<StyledAll_Items>
 			{items.map((item) => {

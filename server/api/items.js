@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Item, User } = require('../db/models');
+const { Item, User, Review } = require('../db/models');
 // const { User } = require('../db/models/User');
 
 const requireToken = async (req, res, next) => {
@@ -13,7 +13,7 @@ const requireToken = async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
 	try {
-		const allItems = await Item.findAll();
+		const allItems = await Item.findAll({ include: Review });
 		res.json(allItems);
 	} catch (err) {
 		console.error(err);
@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.get('/:itemId', requireToken, async (req, res, next) => {
+router.get('/:itemId', async (req, res, next) => {
 	try {
 		const id = req.params.itemId;
 		const specificItem = await Item.findByPk(id);

@@ -49,7 +49,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 				</Switch>
 			) : (
 				<Switch>
-					<Route exact path="/" render={(props) => renderer(Login, props)} />
+					<Route exact path="/" render={(props) => renderer(Home, props)} />
 					<Route
 						exact
 						path="/login"
