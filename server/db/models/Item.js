@@ -1,4 +1,4 @@
-const { STRING, INTEGER, TEXT, FLOAT, ARRAY } = require("sequelize");
+const { STRING, INTEGER, TEXT, FLOAT, VIRTUAL } = require("sequelize");
 const db = require("../db");
 
 const Item = db.define("item", {
@@ -18,6 +18,14 @@ const Item = db.define("item", {
   price: {
     type: FLOAT,
     allowNull: false,
+  },
+  dollars: {
+    type: VIRTUAL,
+    get() {
+      const rawValue = this.getDataValue("price");
+      const dollar = (rawValue / 100).toFixed(2);
+      return `$${dollar}`;
+    },
   },
 });
 

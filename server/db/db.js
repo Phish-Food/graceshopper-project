@@ -1,6 +1,9 @@
 const Sequelize = require("sequelize");
 const config = require("./config");
 
+const pkg = require("../../package.json");
+const db = new Sequelize(`postgres://localhost:5432/${pkg.name}`);
+
 const db = new Sequelize({
   database: config.database.name,
   username: config.database.username,
@@ -15,4 +18,7 @@ const db = new Sequelize({
     },
   },
 });
+
+
+
 module.exports = db;

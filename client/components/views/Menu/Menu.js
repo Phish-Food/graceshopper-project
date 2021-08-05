@@ -2,23 +2,24 @@
 // Menu.js
 import React from "react";
 import { StyledMenu } from "./Menu.styled";
+import { Link } from 'react-router-dom';
 
 const Menu = ({ open }) => {
   return (
     <StyledMenu open={open}>
       <div>
         <header>
-          <h2>Dummy</h2>
+          <Link to="/carts"><h3>My Cart</h3></Link>
         </header>
       </div>
       <div>
         <header>
-          <h2>Dummy</h2>
+          <Link to="/items"><h3>All Items</h3></Link>
         </header>
       </div>
       <div>
         <header>
-          <h2>Dummy</h2>
+          <h3>Dummy</h3>
         </header>
       </div>
     </StyledMenu>

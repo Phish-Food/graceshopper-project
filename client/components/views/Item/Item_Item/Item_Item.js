@@ -1,22 +1,38 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { connect } from 'react-redux';
-import { StyledItem_Item } from './Item_Item.styled';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { StyledItem_Item } from "./Item_Item.styled";
+import { Link } from "react-router-dom";
 
 const Item_Item = ({ item }) => {
-	return (
-		<StyledItem_Item>
-			<img src={item.imageUrl} />
-			<ul>
-				<li>
-					<Link to={`/items/${item.id}`}>{item.name}</Link>
-				</li>
-				<li>{item.price}</li>
-				<li>{item.description}</li>
-			</ul>
-		</StyledItem_Item>
-	);
+  const getAverage = (reviews) => {
+    if (!reviews.length) {
+      return 0;
+    }
+    return (
+      reviews.reduce((rating, review) => {
+        return review.rating + rating;
+      }, 0) / reviews.length
+    );
+  };
+  return (
+    <StyledItem_Item>
+      <Link to={`/items/${item.id}`}>
+        <header>
+          <section id="item-section">
+            <img src={item.imageUrl} />
+          </section>
+        </header>
+        <div>
+          <h3>{item.name}</h3>
+
+          <p>Price: {item.dollars}</p>
+          <p>Description: {item.description}</p>
+          <p>Reviews: {getAverage(item.reviews)}</p>
+        </div>
+      </Link>
+    </StyledItem_Item>
+  );
 };
 
 const mapStateToProps = (state) => ({});

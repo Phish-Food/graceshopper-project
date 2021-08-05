@@ -33,6 +33,11 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 					<Route exact path="/" render={(props) => renderer(Home, props)} />
 					<Route
 						exact
+						path="/carts"
+						render={(props) => renderer(Single_Cart, props)}
+					/>
+					<Route
+						exact
 						path="/items"
 						render={(props) => renderer(All_Items, props)}
 					/>
@@ -46,10 +51,16 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 						path="/:any"
 						render={(props) => renderer(FourOhFour, props)}
 					/>
+					
 				</Switch>
 			) : (
 				<Switch>
-					<Route exact path="/" render={(props) => renderer(Login, props)} />
+					<Route exact path="/" render={(props) => renderer(Home, props)} />
+					<Route
+						exact
+						path="/carts"
+						render={(props) => renderer(Single_Cart, props)}
+					/>
 					<Route
 						exact
 						path="/login"
@@ -70,6 +81,9 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 						path="/items/:itemId"
 						render={(props) => renderer(Single_Item, props)}
 					/>
+					
+
+
 				</Switch>
 			)}
 		</div>

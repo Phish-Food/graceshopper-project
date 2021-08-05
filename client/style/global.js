@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -39,7 +39,7 @@ font-weight: 400;
     text-align: left;
     text-transform: uppercase;
     margin: 0;
-    background-color: ${({ theme }) => theme.primaryLight};
+   
     z-index: 5;
     }
 input {
@@ -57,7 +57,7 @@ h1,
       margin-top: 20px;
     }
     h2 {
-      ${"" /* margin-bottom: 0px; */}
+      ${'' /* margin-bottom: 0px; */}
     }
   img {
     border-radius: 5px;
@@ -79,7 +79,7 @@ h1,
   }
 section, header {
   width: 100%;
-  ${"" /* height: 100%; */}
+ 
 }
 nav {
   width: 100vw;
