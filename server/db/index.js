@@ -2,11 +2,19 @@
 
 const db = require("./db");
 
-const { User, Cart, Item } = require("./models");
+const { User, Cart, Item, Review, CartItem } = require("./models");
 
-User.belongsTo(Cart);
+// Cart.belongsTo(User)
+// User.hasMany(Cart)
+const UserCartThroughTable = {through: 'user-cart'}
+User.belongsToMany(Cart, UserCartThroughTable)
+User.hasMany(Review)
+Review.belongsTo(User)
+Item.hasMany(Review)
+Review.belongsTo(Item)
+// User.belongsTo(Cart);
 // Cart.belongsTo(User);
-const cartThroughTable = { through: "cart-item" };
+const cartThroughTable = { through: CartItem };
 Cart.belongsToMany(Item, cartThroughTable);
 Item.belongsToMany(Cart, cartThroughTable);
 
@@ -16,5 +24,7 @@ module.exports = {
     User,
     Cart,
     Item,
+    Review,
+    CartItem
   },
 };
