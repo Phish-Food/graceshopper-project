@@ -9,6 +9,7 @@ const Cart = db.define("cart", {
 	},
     totalprice:{
         type:Sequelize.INTEGER,
+        defaultValue:0,
         get(){
             const rawValue = this.getDataValue('totalprice')
             const dollar = (rawValue/100).toFixed(2)
