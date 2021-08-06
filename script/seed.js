@@ -37,7 +37,7 @@ async function seed() {
     carts: (() =>
       [...Array(1).keys()].map((_) => {
         return {
-          totalprice:1
+          totalprice: 1,
         };
       }))(),
     items: (() =>
@@ -53,14 +53,13 @@ async function seed() {
           })} description`,
         };
       }))(),
-      reviews: (() =>
+    reviews: (() =>
       [...Array(10).keys()].map((_) => {
- 
         return {
-          rating:Math.floor((Math.random()*5)+1),
+          rating: Math.floor(Math.random() * 5 + 1),
           reviewtext: `this item is ${uniqueNamesGenerator({
             dictionaries: [adjectives],
-          })}`
+          })}`,
         };
       }))(),
   };
@@ -78,14 +77,11 @@ async function seed() {
     returning: true,
   });
 
-
-
-
-  const [item1] = allItems
+  const [item1] = allItems;
   const [user1] = allUsers;
   const [cart1] = allCarts;
   const quantity = 2;
-  
+
   // allUsers.forEach(async (user)=>{
   //   console.log('user',user)
   //   const randomreview = allReviews[Math.floor((Math.random()*allReviews.length-1)+1)]
@@ -93,13 +89,12 @@ async function seed() {
   //   await user.addReview(randomreview)
   // })
 
-  
-  allReviews.forEach(async (review)=>{
+  allReviews.forEach(async (review) => {
+    const randomUser =
+      allUsers[Math.floor(Math.random() * (allUsers.length - 1) + 1)];
 
-    const randomUser = allUsers[Math.floor((Math.random()*(allUsers.length-1))+1)]
-
-    await review.setUser(randomUser)
-  })
+    await review.setUser(randomUser);
+  });
 
   // allItems.forEach(async (item)=>{
 
@@ -108,23 +103,18 @@ async function seed() {
   //   await item.addReview(randomreview)
   // })
 
-  
-
-
-
-  await item1.addReviews(allReviews)
+  await item1.addReviews(allReviews);
   const newCartItem = await CartItem.create({
     cartId: cart1.id,
     itemId: item1.id,
-    price:item1.price,
+    price: item1.price,
     quantity,
-  })
-
+  });
 
   await user1.addCart(cart1);
   // await cart1.addItems(allItems);
 
-  console.log('cart', cart1.totalprice)
+  console.log("cart", cart1.dollars);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {

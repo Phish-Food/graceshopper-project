@@ -1,9 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledNav = styled.nav`
-
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: right;
   background-color: ${({ theme }) => theme.primaryLight};
 

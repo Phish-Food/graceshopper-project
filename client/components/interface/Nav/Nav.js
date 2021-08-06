@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { StyledNav } from "./Nav.styled";
 import Image from "../../utils/ImageComponent/Image";
 import { resetAuth } from "../../../redux/reducers/auth";
+import history from "../../../utils/history";
 
-const Nav = ({ logout, isLoggedIn }) => {
+const Nav = ({ logout, login, isLoggedIn }) => {
   return (
     <StyledNav>
       <Image
@@ -13,9 +14,13 @@ const Nav = ({ logout, isLoggedIn }) => {
         size={{ height: "80px", width: "120px" }}
         logo={true}
       />
-      {isLoggedIn && (
+      {isLoggedIn ? (
         <a href="#" onClick={logout}>
           Logout
+        </a>
+      ) : (
+        <a href="#" onClick={() => history.push("/")}>
+          Login
         </a>
       )}
     </StyledNav>
