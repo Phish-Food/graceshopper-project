@@ -5,16 +5,16 @@ import { StyledItem_Item } from "./Item_Item.styled";
 import { Link } from "react-router-dom";
 
 const Item_Item = ({ item }) => {
-  const getAverage = (reviews) => {
-    if (!reviews.length) {
-      return 0;
-    }
-    return (
-      reviews.reduce((rating, review) => {
-        return review.rating + rating;
-      }, 0) / reviews.length
-    );
-  };
+  // const getAverage = (reviews) => {
+  //   if (!reviews.length) {
+  //     return 0;
+  //   }
+  //   return (
+  //     reviews.reduce((rating, review) => {
+  //       return review.rating + rating;
+  //     }, 0) / reviews.length
+  //   );
+  // };
   return (
     <StyledItem_Item>
       <Link to={`/items/${item.id}`}>
@@ -28,7 +28,7 @@ const Item_Item = ({ item }) => {
 
           <p>Price: {item.dollars}</p>
           <p>Description: {item.description}</p>
-          <p>Reviews: {getAverage(item.reviews)}</p>
+          {/* <p>Reviews: {getAverage(item.reviews)}</p> */}
         </div>
       </Link>
     </StyledItem_Item>
