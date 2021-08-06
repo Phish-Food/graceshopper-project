@@ -28,7 +28,10 @@ export const setFailed = () => {
 export const me = () => async (dispatch) => {
   try {
     const res = await axios.get("/auth/me", { credentials: "include" });
+    history.push("/");
     dispatch(setAuth(res.data));
+    console.log("HERE", "redircet");
+    //history.push("/");
   } catch (err) {
     dispatch(setFailed());
     console.log(err);
@@ -39,10 +42,13 @@ export const authenticate =
   (username, password, method) => async (dispatch) => {
     try {
       await axios.post(`/auth/${method}`, { username, password });
+      history.push("/");
       dispatch(me());
+      //history.push("/");
       dispatch(setLogin(true));
-      history.push("/home");
+      //history.push("/");
     } catch (authError) {
+      history.push("/");
       return dispatch(setAuth({ error: authError }));
     }
   };
@@ -56,7 +62,7 @@ export const resetAuth = () => async (dispatch) => {
   try {
     await axios.delete("/auth/logout");
     dispatch(reset());
-    history.push("/login");
+    history.push("/");
   } catch (err) {
     console.log(err);
   }
