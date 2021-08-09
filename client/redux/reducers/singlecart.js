@@ -62,13 +62,13 @@ export const setUpdateToCart = (itemId, quantity) => {
   };
 };
 
-export const setCheckoutStatus = (status, id, history) => {
+export const setCheckoutStatus = (status, id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/usercart/checkout`, status);
       //await axios.post(`/api/usercart/${id}`);
       dispatch(setCheckout());
-      history.push("/");
+
     } catch (error) {
       console.log(error);
     }
