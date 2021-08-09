@@ -5,6 +5,12 @@ import {NavLink} from 'react-router-dom';
 
 
 class allUsersView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            allUsers: []
+        }
+
 
   componentDidMount() {
     this.props.dispatch(allUsers());

@@ -26,7 +26,7 @@ class Admin extends React.Component {
     render() {
         return (
             <div>
-                <h1>Admin</h1>
+                <h1>Admin Page</h1>
                 <button onClick={this.props.fetchAllUsers}>Refresh</button>
                 <ul>
                   {this.state.current.map((user, index) => {
@@ -34,7 +34,10 @@ class Admin extends React.Component {
                       <li key={index}>
                         <NavLink to={`/admin/user/${user.id}`}>{user.name}</NavLink>
                       </li>
-                    )
-                  }
-      }
+                    );
+                  })}
+                </ul>
+            </div>
+        );
+    }
 }
