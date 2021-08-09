@@ -6,7 +6,8 @@ const UPDATE_USER = "UPDATE_USER";
 const GET_ALL_USERS = "GET_ALL_USERS";
 
 
-const defaultUser = {};
+const defaultUser = {
+};
 
 const getUser = user => {
     return {
@@ -16,13 +17,20 @@ const getUser = user => {
 }
 
 const fetchAllUsers = () => {
-    return (dispatch, getState) => {
-        return axios.get("/api/users")
-            .then(response => {
-                dispatch({
-                    type: GET_ALL_USERS,
-                    users: response.data
-                });
+  return (dispatch, getState) => {
+    return axios.get("/api/users")
+        .then(response => {
+            dispatch({
+                type: GET_ALL_USERS,
+                users: response.data
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+}
+
 
 const removeUser = () => {
     return {
