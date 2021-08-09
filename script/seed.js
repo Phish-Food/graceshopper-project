@@ -36,9 +36,7 @@ async function seed() {
       }))(),
     carts: (() =>
       [...Array(1).keys()].map((_) => {
-        return {
-          totalprice: 1,
-        };
+        return {};
       }))(),
     items: (() =>
       [...Array(100).keys()].map((_, i) => {
@@ -104,13 +102,14 @@ async function seed() {
   // })
 
   await item1.addReviews(allReviews);
-  const newCartItem = await CartItem.create({
+  await CartItem.create({
     cartId: cart1.id,
     itemId: item1.id,
     price: item1.price,
     quantity,
   });
 
+  await cart1.setUser(user1);
   await user1.addCart(cart1);
   // await cart1.addItems(allItems);
 

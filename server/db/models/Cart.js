@@ -7,7 +7,7 @@ const Cart = db.define("cart", {
     allowNull: false,
     defaultValue: "Cart",
   },
-  price: {
+  totalprice: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     allowNull: false,
@@ -15,7 +15,7 @@ const Cart = db.define("cart", {
   dollars: {
     type: Sequelize.VIRTUAL,
     get() {
-      const rawValue = this.getDataValue("price");
+      const rawValue = this.getDataValue("totalprice");
       const dollar = (rawValue / 100).toFixed(2);
       return `$${dollar}`;
     },

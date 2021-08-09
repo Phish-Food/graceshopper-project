@@ -1,11 +1,22 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { StyledItem_Item } from "./Item_Item.styled";
 import { Link } from "react-router-dom";
-import { setToCart } from "../../../../redux/reducers/singlecart";
+import {
+  fetchCart,
+  setToCart,
+  setUpdateToCart,
+} from "../../../../redux/reducers/singlecart";
 
-const Item_Item = ({ item, addToCart }) => {
+const Item_Item = ({
+  auth,
+  item,
+  addToCart,
+  cartItems,
+  updateCart,
+  getCart,
+}) => {
   // const getAverage = (reviews) => {
   //   if (!reviews.length) {
   //     return 0;
@@ -16,9 +27,15 @@ const Item_Item = ({ item, addToCart }) => {
   //     }, 0) / reviews.length
   //   );
   // };
+  useEffect(() => {
+    // getCart(auth.id);
+  }, []);
   const [quantity, setQuantity] = useState(1);
   const handleClick = () => {
     addToCart(item.id, quantity);
+  };
+  const handleUpdate = () => {
+    updateCart(item.id, quantity);
   };
   return (
     <StyledItem_Item>
@@ -40,25 +57,34 @@ const Item_Item = ({ item, addToCart }) => {
           min="1"
           max={item.stock}
           value={quantity}
-          onChange={({ target }) => {
-            console.log(target.value);
-            setQuantity(target.value);
-          }}
+          onChange={({ target }) => setQuantity(target.value)}
         />
-        <button onClick={handleClick}>Add to Cart</button>
+        {cartItems.find((cartitem) => cartitem.id === item.id) ? (
+          <button onClick={handleUpdate}>Update Cart</button>
+        ) : (
+          <button onClick={handleClick}>Add to Cart</button>
+        )}
       </div>
     </StyledItem_Item>
   );
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    cartItems: state.cartItems.cartItems,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (itemId, quantity) => {
       dispatch(setToCart(itemId, quantity));
+    },
+    updateCart: (itemId, quantity) => {
+      dispatch(setUpdateToCart(itemId, quantity));
+    },
+    getCart: (id) => {
+      dispatch(fetchCart(id));
     },
   };
 };
