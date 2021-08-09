@@ -6,12 +6,13 @@ const { User, Cart, Item, Review, CartItem } = require("./models");
 
 // Cart.belongsTo(User)
 // User.hasMany(Cart)
-const UserCartThroughTable = {through: 'user-cart'}
-User.belongsToMany(Cart, UserCartThroughTable)
-User.hasMany(Review)
-Review.belongsTo(User)
-Item.hasMany(Review)
-Review.belongsTo(Item)
+const UserCartThroughTable = { through: "user-cart" };
+User.belongsToMany(Cart, UserCartThroughTable);
+Cart.belongsTo(User);
+User.hasMany(Review);
+Review.belongsTo(User);
+Item.hasMany(Review);
+Review.belongsTo(Item);
 // User.belongsTo(Cart);
 // Cart.belongsTo(User);
 const cartThroughTable = { through: CartItem };
@@ -25,6 +26,6 @@ module.exports = {
     Cart,
     Item,
     Review,
-    CartItem
+    CartItem,
   },
 };

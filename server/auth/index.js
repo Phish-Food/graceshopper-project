@@ -8,7 +8,8 @@ router.post("/login", async (req, res, next) => {
   try {
     const token = await User.authenticate(req.body);
     res.cookie("token", token, { maxAge: 8640000 });
-    res.send(201);
+    res.redirect("/");
+    //res.send(201);
   } catch (err) {
     next(err);
   }

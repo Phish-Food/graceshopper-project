@@ -4,12 +4,13 @@ export const StyledMenu = styled.aside`
   display: flex;
   flex-direction: column;
   text-align: center;
-  justify-content: top;
+  justify-content: space-between;
   background: ${({ theme }) => theme.primaryLight};
-  height: ${`calc(100vh - 120px)`};
+  height: ${({ theme }) =>
+    `${`calc(100vh - ${theme.dimensions.footer.height})`}`};
   box-shadow: inset 0 0 3px #5d5d637e;
   width: 0px;
-  top: 80px;
+  padding-top: ${({ theme }) => theme.dimensions.nav.height};
   left: 0;
   z-index: 10;
   overflow: hidden;
@@ -23,9 +24,9 @@ export const StyledMenu = styled.aside`
     section {
     }
   }
-  div:hover{
-    border:solid;
-    font-weight:bold;
+  div:hover {
+    border: solid;
+    font-weight: bold;
     hover-weight: bold;
   }
   @media (max-width: ${({ theme }) => theme.mobile}) {
