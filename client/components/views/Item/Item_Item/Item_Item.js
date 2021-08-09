@@ -30,7 +30,12 @@ const Item_Item = ({
   useEffect(() => {
     // getCart(auth.id);
   }, []);
-  const [quantity, setQuantity] = useState(1);
+  const initQuantity = cartItems.find((cartItem) => cartItem.id === item.id);
+  console.log(initQuantity);
+  const [quantity, setQuantity] = useState(
+    (initQuantity && initQuantity["cart-item"].quantity) || 1
+  );
+
   const handleClick = () => {
     addToCart(item.id, quantity);
   };
@@ -52,14 +57,18 @@ const Item_Item = ({
         <p>Price: {item.dollars}</p>
         <p>Description: {item.description}</p>
         {/* <p>Reviews: {getAverage(item.reviews)}</p> */}
-        <input
-          type="number"
-          min="1"
-          max={item.stock}
-          value={quantity}
-          onChange={({ target }) => setQuantity(target.value)}
-        />
-        {cartItems.find((cartitem) => cartitem.id === item.id) ? (
+        {item.stock > 0 && (
+          <input
+            type="number"
+            min="1"
+            max={item.stock}
+            value={quantity}
+            onChange={({ target }) => setQuantity(target.value)}
+          />
+        )}
+        {!item.stock ? (
+          <p>Out of Stock</p>
+        ) : cartItems.find((cartitem) => cartitem.id === item.id) ? (
           <button onClick={handleUpdate}>Update Cart</button>
         ) : (
           <button onClick={handleClick}>Add to Cart</button>

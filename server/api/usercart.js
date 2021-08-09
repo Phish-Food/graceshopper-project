@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { NoEmitOnErrorsPlugin } = require("webpack");
 const {
   db,
   models: { User, Cart, Item, Review, CartItem },
@@ -17,8 +18,18 @@ router.put("/checkout", requireToken, async (req, res, next) => {
   try {
     const user = req.user;
     const lastCart = user.carts.find((cart) => cart.status === "Cart");
-    const userCart = await Cart.findByPk(lastCart.id);
-
+    const userCart = await Cart.findByPk(lastCart.id, { include: Item });
+    userCart.items.forEach(async (item) => {
+      let newStock = item.stock - item["cart-item"].quantity;
+      if (newStock < 0) {
+        throw Error;
+      } else {
+        await Item.update(
+          { stock: item.stock - item["cart-item"].quantity },
+          { where: { id: item.id } }
+        );
+      }
+    });
     await userCart.update(req.body);
     const newCart = await Cart.create();
 
@@ -90,6 +101,20 @@ router.put("/update/:itemId", requireToken, async (req, res, next) => {
       { quantity },
       { where: { cartId: cart.id, itemId: item.id } }
     );
+    res.send(await Cart.findByPk(cart.id, { include: Item }));
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.delete("/:itemId", requireToken, async (req, res, next) => {
+  try {
+    const { itemId } = req.params;
+    const user = req.user;
+    const item = await Item.findByPk(itemId);
+    const cart = user.carts.find((cart) => cart.status === "Cart");
+    await CartItem.destroy({ where: { cartId: cart.id, itemId: item.id } });
+
     res.send(await Cart.findByPk(cart.id, { include: Item }));
   } catch (e) {
     next(e);

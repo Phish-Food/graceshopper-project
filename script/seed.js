@@ -39,7 +39,7 @@ async function seed() {
         return {};
       }))(),
     items: (() =>
-      [...Array(100).keys()].map((_, i) => {
+      [...Array(10).keys()].map((_, i) => {
         return {
           name: uniqueNamesGenerator({
             dictionaries: [starWars],
