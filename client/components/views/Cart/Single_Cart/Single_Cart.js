@@ -20,6 +20,8 @@ const Single_Cart = ({ auth, cartItems, getCartView, userId, setCheckout }) => {
     (total, item) => total + item["cart-item"].quantity * item.price,
     0
   );
+
+  const totalDollar = (totalprice/100).toFixed(2)
   console.log("cart", cartItems.cartItems);
   return (
     <StyledSingle_Cart>
@@ -35,11 +37,12 @@ const Single_Cart = ({ auth, cartItems, getCartView, userId, setCheckout }) => {
           return <Cart_Item key={item.id} item={item} />;
         })
       )}
-      <button
-        onClick={() => setCheckout({ status: "Purchased", totalprice }, userId)}
+      <h2>Total Price: ${totalDollar}</h2>
+      <Link to={{pathname:"/checkout", state:{ cartItems:cartItems.cartItems, totalprice:totalprice}}}
+        // onClick={() => setCheckout({ status: "Purchased", totalprice }, userId)}
       >
         Checkout
-      </button>
+      </Link>
     </StyledSingle_Cart>
   );
 };
@@ -54,13 +57,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { history }) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getCartView: (userId) => {
       dispatch(fetchCart(userId));
-    },
-    setCheckout: (status, id) => {
-      dispatch(setCheckoutStatus(status, id, history));
     },
   };
 };
