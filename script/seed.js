@@ -4,6 +4,7 @@ const {
   db,
   models: { User, Cart, Item, Review, CartItem },
 } = require("../server/db");
+
 const {
   uniqueNamesGenerator,
   names,
@@ -13,6 +14,10 @@ const {
   colors,
 } = require("unique-names-generator");
 
+const image_finder = require("image-search-engine");
+async function printUrl(query) {
+  return await image_finder.find(query);
+}
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
