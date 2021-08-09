@@ -10,32 +10,29 @@ class allUsersView extends React.Component {
     this.props.dispatch(allUsers());
   }
     render() {
+        const Users = this.props.users
         return (
             <div>
-                <h3>All Users</h3>
-                <ul>
-                    {this.props.allUsers.map((user, index) => {
-                        return (
-                            <li key={index}>
-                                <NavLink to={`/admin/users/${user.id}`}>{user.username}</NavLink>
-                            </li>
-                        )
-                    })}
-                </ul>
-                    <NavLink to="/admin/users/add">Add User</NavLink>
-                    {this.props.allUsers.map((user) => {
-                        return <li key={user.id}>{user.username}</li>
-                    })}
-
-              <NavLink to = "/user/${user.id}">{user.username}</NavLink>
-                removeUser(user) {
-                  this.props.dispatch(removeUser(user));
-                  this.props.allUsers();
-                }
+              <h2>All Users</h2>
+              {Users.map(user => {
+                return (
+                  <div key={user.id}>
+                    <div>
+                      <h3>
+                        <NavLink to={`/users/${user.id}`}>
+                          {user.firstName} {user.lastName}
+                        </NavLink>
+                      </h3>
+                      <h3>{user.address}</h3>
+                      <h3>{user.email}</h3>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-        );
-}
-}
+          )
+        }
+    }
 
 const mapStateToProps = (state) => {
     return {
