@@ -42,7 +42,20 @@ export const setToCart = (itemId, quantity) => {
         `/api/usercart/${itemId}?quantity=${quantity}`
       );
       console.log(data, "SetCart");
-      dispatch(setCartItem(data));
+      dispatch(getCart(data.items));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const setUpdateToCart = (itemId, quantity) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(
+        `/api/usercart/update/${itemId}?quantity=${quantity}`
+      );
+      dispatch(getCart(data.items));
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +66,7 @@ export const setCheckoutStatus = (status, id, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/usercart/checkout`, status);
-      await axios.post(`/api/usercart/${id}`);
+      //await axios.post(`/api/usercart/${id}`);
       dispatch(setCheckout());
       history.push("/");
     } catch (error) {

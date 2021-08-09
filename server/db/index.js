@@ -8,6 +8,7 @@ const { User, Cart, Item, Review, CartItem } = require("./models");
 // User.hasMany(Cart)
 const UserCartThroughTable = { through: "user-cart" };
 User.belongsToMany(Cart, UserCartThroughTable);
+Cart.belongsTo(User);
 User.hasMany(Review);
 Review.belongsTo(User);
 Item.hasMany(Review);
