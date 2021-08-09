@@ -75,6 +75,20 @@ export const setCheckoutStatus = (status, id, history) => {
   };
 };
 
+export const removeCartItem = (cartItem) => {
+  return async (dispatch) => {
+    try {
+      console.log("FDSAFDSAFDSAFDSA", cartItem);
+      const { data } = await axios.delete(`/api/usercart/${cartItem.id}`);
+      //await axios.post(`/api/usercart/${id}`);
+      dispatch(getCart(data.items));
+      //history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const initialState = {
   cartItems: [],
 };
