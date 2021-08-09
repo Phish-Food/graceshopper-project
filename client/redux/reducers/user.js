@@ -15,6 +15,15 @@ const getUser = user => {
     };
 }
 
+const fetchAllUsers = () => {
+    return (dispatch, getState) => {
+        return axios.get("/api/users")
+            .then(response => {
+                dispatch({
+                    type: GET_ALL_USERS,
+                    users: response.data
+                });
+
 const removeUser = () => {
     return {
         type: REMOVE_USER
