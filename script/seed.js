@@ -66,7 +66,7 @@ async function seed() {
   const allUsers = await User.bulkCreate(users, {
     returning: true,
   });
-  const allCarts = await Cart.bulkCreate(carts, { returning: true });
+  //const allCarts = await Cart.bulkCreate(carts, { returning: true });
   const allItems = await Item.bulkCreate(items, {
     returning: true,
   });
@@ -76,8 +76,8 @@ async function seed() {
   });
 
   const [item1] = allItems;
-  const [user1] = allUsers;
-  const [cart1] = allCarts;
+  //const [user1] = allUsers;
+  //const [cart1] = allCarts;
   const quantity = 2;
 
   // allUsers.forEach(async (user)=>{
@@ -102,18 +102,18 @@ async function seed() {
   // })
 
   await item1.addReviews(allReviews);
-  await CartItem.create({
-    cartId: cart1.id,
-    itemId: item1.id,
-    price: item1.price,
-    quantity,
-  });
+  // await CartItem.create({
+  //   cartId: cart1.id,
+  //   itemId: item1.id,
+  //   price: item1.price,
+  //   quantity,
+  // });
 
-  await cart1.setUser(user1);
-  await user1.addCart(cart1);
+  // await cart1.setUser(user1);
+  // await user1.addCart(cart1);
   // await cart1.addItems(allItems);
 
-  console.log("cart", cart1.dollars);
+  // console.log("cart", cart1.dollars);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {

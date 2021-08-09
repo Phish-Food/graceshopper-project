@@ -17,6 +17,7 @@ const requireToken = async (req, res, next) => {
 router.put("/checkout", requireToken, async (req, res, next) => {
   try {
     const user = req.user;
+
     const lastCart = user.carts.find((cart) => cart.status === "Cart");
     const userCart = await Cart.findByPk(lastCart.id, { include: Item });
     userCart.items.forEach(async (item) => {
@@ -73,7 +74,12 @@ router.post("/:itemId", requireToken, async (req, res, next) => {
     const { itemId } = req.params;
     const user = req.user;
     const item = await Item.findByPk(itemId);
-    const cart = user.carts.find((cart) => cart.status === "Cart");
+    let cart = user.carts.find((cart) => cart.status === "Cart");
+    if (!cart) {
+      cart = await Cart.create({});
+      await cart.setUser(user);
+      await user.addCart(cart);
+    }
     await CartItem.create({
       cartId: cart.id,
       itemId: item.id,
