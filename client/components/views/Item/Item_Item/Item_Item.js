@@ -1,21 +1,24 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { StyledItem_Item } from "./Item_Item.styled";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { StyledItem_Item } from './Item_Item.styled';
+import { Link } from 'react-router-dom';
 import {
-  fetchCart,
-  setToCart,
-  setUpdateToCart,
-} from "../../../../redux/reducers/singlecart";
+	fetchCart,
+	setToCart,
+	setUpdateToCart,
+	setToGuestCart,
+} from '../../../../redux/reducers/singlecart';
 
 const Item_Item = ({
-  auth,
-  item,
-  addToCart,
-  cartItems,
-  updateCart,
-  getCart,
+	auth,
+	item,
+	addToCart,
+	cartItems,
+	updateCart,
+	getCart,
+	addToGuestCart,
+	isLoggedin,
 }) => {
   // const getAverage = (reviews) => {
   //   if (!reviews.length) {
@@ -37,7 +40,11 @@ const Item_Item = ({
   );
 
   const handleClick = () => {
-    addToCart(item.id, quantity);
+  if (isLoggedin) {
+			addToCart(item.id, quantity);
+		} else {
+			addToGuestCart(item.id, quantity);
+		}
   };
   const handleUpdate = () => {
     updateCart(item.id, quantity);
@@ -78,23 +85,29 @@ const Item_Item = ({
 };
 
 const mapStateToProps = (state) => {
-  return {
-    cartItems: state.cartItems.cartItems,
-  };
+	const { auth } = state.auth;
+	const { isLoggedin } = !!auth.id;
+	return {
+		cartItems: state.cartItems.cartItems,
+		isLoggedin,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (itemId, quantity) => {
-      dispatch(setToCart(itemId, quantity));
-    },
-    updateCart: (itemId, quantity) => {
-      dispatch(setUpdateToCart(itemId, quantity));
-    },
-    getCart: (id) => {
-      dispatch(fetchCart(id));
-    },
-  };
+	return {
+		addToCart: (itemId, quantity) => {
+			dispatch(setToCart(itemId, quantity));
+		},
+		updateCart: (itemId, quantity) => {
+			dispatch(setUpdateToCart(itemId, quantity));
+		},
+		getCart: (id) => {
+			dispatch(fetchCart(id));
+		},
+		addToGuestCart: (itemId, quantity) => {
+			dispatch(setToGuestCart(itemId, quantity));
+		},
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item_Item);

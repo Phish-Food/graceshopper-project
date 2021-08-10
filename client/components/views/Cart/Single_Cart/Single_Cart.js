@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { StyledSingle_Cart } from "./Single_Cart.styled";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { StyledSingle_Cart } from './Single_Cart.styled';
 import {
-  fetchCart,
-  setCheckoutStatus,
-} from "../../../../redux/reducers/singlecart";
-import { Link } from "react-router-dom";
-import Item_Item from "../../Item/Item_Item/Item_Item.js";
-import Cart_Item from "../Cart_Item/Cart_Item";
+	fetchCart,
+	setCheckoutStatus,
+} from '../../../../redux/reducers/singlecart';
+import { Link } from 'react-router-dom';
+import Item_Item from '../../Item/Item_Item/Item_Item.js';
+import Cart_Item from '../Cart_Item/Cart_Item';
 
 const Single_Cart = ({ auth, cartItems, getCartView, userId, setCheckout }) => {
-  useEffect(() => {
-    getCartView(userId);
-  }, [cartItems.length]);
+	useEffect(() => {
+		getCartView(userId);
+	}, [cartItems.length]);
 
   console.log("cart", cartItems.cartItems);
   const totalprice = cartItems.cartItems.reduce(
@@ -48,13 +48,13 @@ const Single_Cart = ({ auth, cartItems, getCartView, userId, setCheckout }) => {
 };
 
 const mapStateToProps = (state) => {
-  const userId = state.auth.auth.id;
-  const { cartItems } = state;
+	const userId = state.auth.auth.id;
+	const { cartItems } = state;
 
-  return {
-    cartItems,
-    userId,
-  };
+	return {
+		cartItems,
+		userId,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
