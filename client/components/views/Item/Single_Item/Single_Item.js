@@ -95,6 +95,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
       dispatch(fetchCart(id));
     },
   };
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Single_Item);
