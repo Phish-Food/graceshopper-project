@@ -12,12 +12,14 @@ import FourOhFour from '../components/views/FourOhFour/FourOhFour';
 import All_Carts from '../components/views/Cart/All_Carts/All_Carts';
 import Cart_Item from '../components/views/Cart/Cart_Item/Cart_Item';
 import Single_Cart from '../components/views/Cart/Single_Cart/Single_Cart';
-
-import All_Items from '../components/views/Item/All_Items/All_Items';
-import Item_Item from '../components/views/Item/Item_Item/Item_Item';
-import Single_Item from '../components/views/Item/Single_Item/Single_Item';
 import GuestCheckout from '../components/views/Cart/GuestCheckout/GuestCheckout';
 import Single_GuestCart from '../components/views/Cart/Single_GuestCart/Single_GuestCart';
+import Allusers from "../components/views/Admin/Allusers";
+import Single_User_Info from "../components/views/Admin/userinfo/userinfo"
+import All_Items from "../components/views/Item/All_Items/All_Items";
+import Item_Item from "../components/views/Item/Item_Item/Item_Item";
+import Single_Item from "../components/views/Item/Single_Item/Single_Item";
+import Checkout_Page from "../components/views/Cart/Checkout_Page/Checkout_Page"
 
 const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 	useEffect(() => {
@@ -27,6 +29,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 	const renderer = (Component, props) => (
 		<Portal {...{ Component, props, open, preCheck, auth }} />
 	);
+
 
 	return (
 		<div>

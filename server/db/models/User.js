@@ -82,6 +82,12 @@ const hashPassword = async (user) => {
   }
 };
 
+const addCart = async (user) => {
+  //in case the password has been changed, we want to encrypt it with bcrypt
+  console.log("HEllo");
+};
+
 User.beforeCreate(hashPassword);
+User.afterCreate(addCart);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));

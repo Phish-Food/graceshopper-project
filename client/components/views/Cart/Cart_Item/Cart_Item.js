@@ -1,12 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import {
+  removeCartItem,
+  setUpdateToCart,
+} from "../../../../redux/reducers/singlecart";
 import { StyledCart_Item } from "./Cart_Item.styled";
 
-const Cart_Item = ({ item, updateCartItem }) => {
+const Cart_Item = ({ item, deleteCartItem, updateCart }) => {
   const [quantity, setQuantity] = useState(item["cart-item"].quantity);
   const handleClick = () => {
-    updateCartItem();
+    deleteCartItem(item);
+  };
+  const handleUpdate = () => {
+    updateCart(item.id, quantity);
   };
   return (
     <StyledCart_Item>
@@ -26,6 +33,7 @@ const Cart_Item = ({ item, updateCartItem }) => {
             setQuantity(target.value);
           }}
         />
+        <button onClick={handleUpdate}>Update Cart</button>
         <button onClick={handleClick}>Remove From Cart</button>
       </section>
     </StyledCart_Item>
@@ -38,8 +46,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    updateCartItem: () => {
-      dispatch();
+    deleteCartItem: (cartItem) => {
+      dispatch(removeCartItem(cartItem));
+    },
+    updateCart: (itemId, quantity) => {
+      dispatch(setUpdateToCart(itemId, quantity));
     },
   };
 };

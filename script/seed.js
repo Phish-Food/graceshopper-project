@@ -4,6 +4,7 @@ const {
   db,
   models: { User, Cart, Item, Review, CartItem },
 } = require("../server/db");
+
 const {
   uniqueNamesGenerator,
   names,
@@ -13,6 +14,10 @@ const {
   colors,
 } = require("unique-names-generator");
 
+const image_finder = require("image-search-engine");
+async function printUrl(query) {
+  return await image_finder.find(query);
+}
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
@@ -39,7 +44,7 @@ async function seed() {
         return {};
       }))(),
     items: (() =>
-      [...Array(100).keys()].map((_, i) => {
+      [...Array(10).keys()].map((_, i) => {
         return {
           name: uniqueNamesGenerator({
             dictionaries: [starWars],
@@ -66,7 +71,7 @@ async function seed() {
   const allUsers = await User.bulkCreate(users, {
     returning: true,
   });
-  const allCarts = await Cart.bulkCreate(carts, { returning: true });
+  //const allCarts = await Cart.bulkCreate(carts, { returning: true });
   const allItems = await Item.bulkCreate(items, {
     returning: true,
   });
@@ -76,9 +81,18 @@ async function seed() {
   });
 
   const [item1] = allItems;
-  const [user1] = allUsers;
-  const [cart1] = allCarts;
+  //const [user1] = allUsers;
+  //const [cart1] = allCarts;
   const quantity = 2;
+  
+  const adminUser = User.create({
+    firstName: "Ray",
+    lastName: "Tam",
+    username: `RayTam@gmail.com`,
+    password: "123",
+    role: "Admin",
+  })
+
 
   // allUsers.forEach(async (user)=>{
   //   console.log('user',user)
@@ -102,18 +116,18 @@ async function seed() {
   // })
 
   await item1.addReviews(allReviews);
-  await CartItem.create({
-    cartId: cart1.id,
-    itemId: item1.id,
-    price: item1.price,
-    quantity,
-  });
+  // await CartItem.create({
+  //   cartId: cart1.id,
+  //   itemId: item1.id,
+  //   price: item1.price,
+  //   quantity,
+  // });
 
-  await cart1.setUser(user1);
-  await user1.addCart(cart1);
+  // await cart1.setUser(user1);
+  // await user1.addCart(cart1);
   // await cart1.addItems(allItems);
 
-  console.log("cart", cart1.dollars);
+  // console.log("cart", cart1.dollars);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
