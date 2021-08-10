@@ -10,6 +10,7 @@ import {
   setToGuestCart,
   setUpdateToGuestCart,
 } from "../../../../redux/reducers/singlecart";
+import Image from "../../../utils/ImageComponent/Image";
 
 const Item_Item = ({
   auth,
@@ -81,7 +82,11 @@ const Item_Item = ({
       <header>
         <section id="item-section">
           <Link to={`/items/${item.id}`}>
-            <img src={item.imageUrl} />
+            {/* <img src={item.imageUrl} /> */}
+            <Image
+              url={item.imageUrl}
+              size={{ height: "300px", width: "150px" }}
+            />
           </Link>
         </section>
       </header>
