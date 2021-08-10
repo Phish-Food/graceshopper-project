@@ -49,7 +49,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
           />
             <Route
             exact
-            path="/test"
+            path="/users/:userId"
             render={(props) => renderer(Single_User_Info, props)}
           />
 

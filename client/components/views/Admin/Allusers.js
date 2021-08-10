@@ -26,7 +26,7 @@ export class allUsersView extends React.Component {
                     <div>
                       <h3>  
                         {index+1}.{" "} 
-                        <NavLink to={`/test`}>
+                        <NavLink to={`/users/${user.id}`}>
                           {user.firstName} {user.lastName}
                         </NavLink>
                       </h3>

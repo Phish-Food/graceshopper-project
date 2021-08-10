@@ -54,13 +54,14 @@ const updateUser = (user, value) => {
     };
 }
 
-export const getSingleUser = (user) => {
+export const getSingleUser = (userId) => {
     return async (dispatch) => {
       try { 
-        const { data } = await axios.delete(`/api/users/${user.id}`);
-        //await axios.post(`/api/usercart/${id}`);
+        console.log('this thunk is working',userId)
+        const { data } = await axios.get(`/api/users/${userId}`);
+        console.log('data',data)
         dispatch(getUser(data));
-        //history.push("/");
+
       } catch (error) {
         console.log(error);
       }

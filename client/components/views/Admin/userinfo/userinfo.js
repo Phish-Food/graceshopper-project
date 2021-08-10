@@ -130,19 +130,42 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-// import {fetchAllUsers} from '../../../redux/reducers/user.js'
+import {getSingleUser} from '../../../../redux/reducers/user.js'
 import {NavLink} from 'react-router-dom';
 
-export default class Single_User_Info extends React.Component {
+export  class Single_User_Info extends React.Component {
   constructor(props) {
     super(props);
   
   }
   
+  componentDidMount() {
+    const userId = this.props.match.params.userId
+    this.props.getUser(userId);
+  }
+  
+  
 
-  render() {   
+  render() { 
+    console.log('id', this.props.match.params.userId)
+    console.log('this', this.props)  
        return(
            <h3>test</h3>
        )
       }
     }
+
+    const mapStateToProps = (state) => {console.log('state',state)
+      return {
+    
+          user: state.adminUser.user
+      };
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+      return {
+        getUser: (userId) => dispatch(getSingleUser(userId))
+      };
+  };
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(Single_User_Info);

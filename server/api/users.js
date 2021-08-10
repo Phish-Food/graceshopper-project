@@ -36,16 +36,17 @@ router.get("/", requireToken, async (req, res, next) => {
 
 router.get("/:userId", requireToken, async (req, res, next) => {
   try {
+    console.log('req', req.params.userId)
     const user = await User.findOne({where: {
       id:req.params.userId,
-      attributes: ["id", "username", "firstName", "lastName"],
-      include: [
-        {
-          model: Cart,
-          include: [Item],
-        },
-      ],
+      // include: [
+      //   {
+      //     model: Cart,
+      //     include: [Item],
+      //   },
+      // ],
     }});
+    console.log('user',user)
     res.json(user);
   } catch (err) {
     next(err);
