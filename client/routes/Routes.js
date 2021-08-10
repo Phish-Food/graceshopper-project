@@ -23,7 +23,7 @@ import Single_Item from "../components/views/Item/Single_Item/Single_Item";
 import Checkout_Page from "../components/views/Cart/Checkout_Page/Checkout_Page"
 
 
-const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
+const Routes = ({ getMe, isLoggedIn, open, preCheck, auth,isAdmin }) => {
   useEffect(() => {
     getMe();
   }, [isLoggedIn]);
@@ -31,17 +31,19 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
   const renderer = (Component, props) => (
     <Portal {...{ Component, props, open, preCheck, auth }} />
   );
-
+  console.log('auth', auth.role)
+  console.log('is', isAdmin)
   return (
     <div>
       {isLoggedIn ? (
-        <Switch>
+        isAdmin?(<Switch>
           <Route exact path="/" render={(props) => renderer(Home, props)} />
           <Route
             exact
             path="/login"
             render={(props) => renderer(Home, props)}
-          />    
+          /> 
+        
             <Route
             exact
             path="/users"
@@ -52,6 +54,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             path="/users/:userId"
             render={(props) => renderer(Single_User_Info, props)}
           />
+    
 
            <Route
             exact
@@ -78,9 +81,48 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             path="/:any"
             render={(props) => renderer(FourOhFour, props)}
           />
-        
+           </Switch>
+):(
+        <Switch>
+          <Route exact path="/" render={(props) => renderer(Home, props)} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => renderer(Home, props)}
+          /> 
+           <Route
+            exact
+            path="/checkout"
+            render={(props) => renderer(Checkout_Page, props)}
+          />
+          <Route
+            exact
+            path="/carts"
+            render={(props) => renderer(Single_Cart, props)}
+          />
+          <Route
+            exact
+            path="/items"
+            render={(props) => renderer(All_Items, props)}
+          />
+          <Route
+            exact
+            path="/items/:itemId"
+            render={(props) => renderer(Single_Item, props)}
+          />
+          <Route
+            exact
+            path="/:any"
+            render={(props) => renderer(FourOhFour, props)}
+          />
+            <Route
+            exact
+            path="/:any/:any"
+            render={(props) => renderer(FourOhFour, props)}
+          />
 
-        </Switch>
+
+        </Switch>)
       ) : (
         <Switch>
           <Route exact path="/" render={(props) => renderer(Home, props)} />
@@ -115,6 +157,16 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             path="/checkout"
             render={(props) => renderer(Checkout_Page, props)}
           />
+            <Route
+            exact
+            path="/:any"
+            render={(props) => renderer(FourOhFour, props)}
+          />
+            <Route
+            exact
+            path="/:any/:any"
+            render={(props) => renderer(FourOhFour, props)}
+          />
 
         </Switch>
       )}
@@ -125,10 +177,13 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 const mapState = (state) => {
   const { auth, preCheck } = state.auth;
   const isLoggedIn = !!auth.id;
+  const isAdmin = auth.role==="Admin"?true:false
+
   return {
     isLoggedIn,
     auth,
     preCheck,
+    isAdmin
   };
 };
 
