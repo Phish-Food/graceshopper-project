@@ -28,6 +28,15 @@ export const setFailed = () => {
 export const me = () => async (dispatch) => {
   try {
     const res = await axios.get("/auth/me", { credentials: "include" });
+    const storage = window.localStorage;
+    const guestItems = storage.getItem("guestcart");
+    console.log("ME", guestItems);
+    if (guestItems) {
+      await axios.post(
+        `/api/guestcart/persist/${res.data.id}`,
+        JSON.parse(guestItems)
+      );
+    }
     dispatch(setAuth(res.data));
     console.log("HERE", "redircet", res.data);
     history.push("/");
@@ -58,9 +67,9 @@ export const reset = () => {
 };
 export const resetAuth = () => async (dispatch) => {
   try {
+    history.push("/");
     await axios.delete("/auth/logout");
     dispatch(reset());
-    history.push("/");
   } catch (err) {
     console.log(err);
   }
