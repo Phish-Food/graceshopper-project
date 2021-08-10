@@ -15,6 +15,7 @@ import Single_Cart from "../components/views/Cart/Single_Cart/Single_Cart";
 
 
 import Allusers from "../components/views/Admin/Allusers";
+import Single_User_Info from "../components/views/Admin/userinfo/userinfo"
 
 import All_Items from "../components/views/Item/All_Items/All_Items";
 import Item_Item from "../components/views/Item/Item_Item/Item_Item";
@@ -46,6 +47,12 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             path="/users"
             render={(props) => renderer(Allusers, props)}
           />
+            <Route
+            exact
+            path="/test"
+            render={(props) => renderer(Single_User_Info, props)}
+          />
+
            <Route
             exact
             path="/checkout"

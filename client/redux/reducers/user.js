@@ -54,17 +54,23 @@ const updateUser = (user, value) => {
     };
 }
 
-// export const me = () => async dispatch => {
-//     try {
-//         const response = await axios.get("/auth/me");
-//         dispatch(getUser(response.data || defaultUser));
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+export const getSingleUser = (user) => {
+    return async (dispatch) => {
+      try { 
+        const { data } = await axios.delete(`/api/users/${user.id}`);
+        //await axios.post(`/api/usercart/${id}`);
+        dispatch(getUser(data));
+        //history.push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
+
+
 
 const initialState={
-    userlist:['test'],
+    userlist:[],
     user:defaultUser
 }
 
@@ -72,6 +78,8 @@ export default function adminReducer(state = initialState, action) {
     switch (action.type) {
       case GET_ALL_USERS:
         return { ...state, userlist: action.allusers};
+      case GET_USER:
+          return {...state, user: action.user}  
       default:
         return state;
     }

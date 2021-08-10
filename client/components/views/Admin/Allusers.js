@@ -20,16 +20,17 @@ export class allUsersView extends React.Component {
             <div>
      
               <h2>All Users</h2>
-              {Users.map(user => {
+              {Users.map((user,index) => {
                 return (
                   <div key={user.id}>
                     <div>
-                      <h3>
-                        <NavLink to={`/users/${user.id}`}>
+                      <h3>  
+                        {index+1}.{" "} 
+                        <NavLink to={`/test`}>
                           {user.firstName} {user.lastName}
                         </NavLink>
                       </h3>
-                      <h3>{user.username}</h3>
+                      <h3>Email: {user.username}</h3>
                     </div>
                   </div>
                 )
