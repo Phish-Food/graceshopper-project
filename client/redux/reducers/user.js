@@ -54,17 +54,24 @@ const updateUser = (user, value) => {
     };
 }
 
-// export const me = () => async dispatch => {
-//     try {
-//         const response = await axios.get("/auth/me");
-//         dispatch(getUser(response.data || defaultUser));
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+export const getSingleUser = (userId) => {
+    return async (dispatch) => {
+      try { 
+        console.log('this thunk is working',userId)
+        const { data } = await axios.get(`/api/users/${userId}`);
+        console.log('data',data)
+        dispatch(getUser(data));
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
+
+
 
 const initialState={
-    userlist:['test'],
+    userlist:[],
     user:defaultUser
 }
 
@@ -72,6 +79,8 @@ export default function adminReducer(state = initialState, action) {
     switch (action.type) {
       case GET_ALL_USERS:
         return { ...state, userlist: action.allusers};
+      case GET_USER:
+          return {...state, user: action.user}  
       default:
         return state;
     }
