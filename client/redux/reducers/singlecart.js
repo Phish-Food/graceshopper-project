@@ -131,8 +131,8 @@ export const setGuestCheckoutStatus = (guestCartItems) => {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
+	}
+};
 
 
 export const removeCartItem = (cartItem) => {
