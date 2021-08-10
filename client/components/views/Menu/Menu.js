@@ -39,7 +39,7 @@ const Menu = ({ open, isLoggedin }) => {
 
 const mapStateToProps = (state) => {
 	const { auth } = state.auth;
-	const { isLoggedin } = !!auth.id;
+	const  isLoggedin  = !!auth.id;
 	return {
 		isLoggedin,
 	};
