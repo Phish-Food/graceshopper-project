@@ -84,6 +84,15 @@ async function seed() {
   //const [user1] = allUsers;
   //const [cart1] = allCarts;
   const quantity = 2;
+  
+  const adminUser = User.create({
+    firstName: "Ray",
+    lastName: "Tam",
+    username: `RayTam@gmail.com`,
+    password: "123",
+    role: "Admin",
+  })
+
 
   // allUsers.forEach(async (user)=>{
   //   console.log('user',user)
