@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {fetchAllUsers} from '../../../redux/reducers/user.js'
 import {NavLink} from 'react-router-dom';
 
-
 export class allUsersView extends React.Component {
   constructor(props) {
     super(props);

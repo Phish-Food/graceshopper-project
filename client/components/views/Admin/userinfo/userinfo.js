@@ -2,14 +2,14 @@ import React = from 'react';
 import { connect } from 'react-redux';
 import { fetchCart } from '../../../../redux/reducers/singlecart';
 import { fetchUserInfo } from '../../../../redux/reducers/userinfo';
-// The component will display the user information
-// and the cart information
+
 class Single_User_Info extends React.Component<{
     userInfo: any,
     cart: any,
     fetchCart: Function,
     fetchUserInfo: Function
 }, {}
+
 return() {
 <div>
     <div class="row">
@@ -58,19 +58,20 @@ return() {
                                 <input type="text" class="form-control" value={this.props.userInfo.country} disabled/>
                             </div>
                         </div>
-                        // <div class="col-md-6">
-                        //     <div class="form-group">
-                        //         <label>User Type</label>
-                        //         <input type="text" class="form-control" value={this.props.userInfo.userType} disabled/>
-                        //     </div>
-                        //     <div class="form-group">
-                        //         <label>User Status</label>
-                        //         <input type="text" class="form-control" value={this.props.userInfo.userStatus} disabled/>
-                        //     </div>
-                        //     <div class="form-group">
-                        //         <label>User Role</label>
-                        //         <input type="text" class="form-control" value={this.props.userInfo.userRole} disabled/>
-                        //     </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>User Type</label>
+                                <input type="text" class="form-control" value={this.props.userInfo.userType} disabled/>
+                            </div>
+                            <div class="form-group">
+                                <label>User Status</label>
+                                <input type="text" class="form-control" value={this.props.userInfo.userStatus} disabled/>
+                            </div>
+                            <div class="form-group">
+                                <label>User Role</label>
+                                <input type="text" class="form-control" value={this.props.userInfo.userRole} disabled/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,4 +126,3 @@ export interface UserInfoProps {
     cart: any;
     fetchUserInfo: Function;
     fetchCart: Function;
-}

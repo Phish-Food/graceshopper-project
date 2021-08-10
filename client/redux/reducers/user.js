@@ -6,7 +6,8 @@ const UPDATE_USER = "UPDATE_USER";
 const GET_ALL_USERS = "GET_ALL_USERS";
 
 
-const defaultUser = {};
+const defaultUser = {
+};
 
 const getUser = user => {
     return {
