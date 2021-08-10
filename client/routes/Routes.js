@@ -14,7 +14,7 @@ import Cart_Item from "../components/views/Cart/Cart_Item/Cart_Item";
 import Single_Cart from "../components/views/Cart/Single_Cart/Single_Cart";
 
 
-import All_Users from "../components/views/User/All_Users/All_Users";
+import Allusers from "../components/views/Admin/Allusers";
 
 import All_Items from "../components/views/Item/All_Items/All_Items";
 import Item_Item from "../components/views/Item/Item_Item/Item_Item";
@@ -40,7 +40,12 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             exact
             path="/login"
             render={(props) => renderer(Home, props)}
-          />  
+          />    
+            <Route
+            exact
+            path="/users"
+            render={(props) => renderer(Allusers, props)}
+          />
            <Route
             exact
             path="/checkout"
@@ -66,7 +71,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             path="/:any"
             render={(props) => renderer(FourOhFour, props)}
           />
-         
+        
 
         </Switch>
       ) : (
@@ -97,11 +102,7 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
             path="/items/:itemId"
             render={(props) => renderer(Single_Item, props)}
           />
-          <Route
-            exact
-            path="/users"
-            render={(props) => renderer(All_Users, props)}
-          />
+    
           <Route
             exact
             path="/checkout"

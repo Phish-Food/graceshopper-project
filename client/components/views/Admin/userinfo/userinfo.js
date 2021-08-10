@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import { fetchCart } from '../../../../redux/reducers/singlecart';
 import { fetchUserInfo } from '../../../../redux/reducers/userinfo';
 
-
-// The component will display the user information
-// and the cart information
-
 class Single_User_Info extends React.Component<{
     userInfo: any,
     cart: any,
@@ -62,6 +58,7 @@ return() {
                                 <input type="text" class="form-control" value={this.props.userInfo.country} disabled/>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>User Type</label>
@@ -124,13 +121,8 @@ return() {
     </div>
 </div>
 }
-
-
-
 export interface UserInfoProps {
     userInfo: any;
     cart: any;
     fetchUserInfo: Function;
     fetchCart: Function;
-}
-

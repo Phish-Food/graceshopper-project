@@ -1,24 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {allUsers} from '../store/auth'
+import {fetchAllUsers} from '../../../redux/reducers/user.js'
 import {NavLink} from 'react-router-dom';
 
-
-class allUsersView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            allUsers: []
-        }
-
-
-  componentDidMount() {
-    this.props.dispatch(allUsers());
+export class allUsersView extends React.Component {
+  constructor(props) {
+    super(props);
+  
   }
-    render() {
-        const Users = this.props.users
-        return (
+  componentDidMount() {
+    this.props.getAllUsers();
+  }
+  
+
+  render() {   
+        console.log('props',this.props)
+        const Users = this.props.allUsers
+        return (  
             <div>
+     
               <h2>All Users</h2>
               {Users.map(user => {
                 return (
@@ -29,8 +29,7 @@ class allUsersView extends React.Component {
                           {user.firstName} {user.lastName}
                         </NavLink>
                       </h3>
-                      <h3>{user.address}</h3>
-                      <h3>{user.email}</h3>
+                      <h3>{user.username}</h3>
                     </div>
                   </div>
                 )
@@ -38,18 +37,19 @@ class allUsersView extends React.Component {
             </div>
           )
         }
-    }
+      }
 
+   
 const mapStateToProps = (state) => {
     return {
-        allUsers: state.auth.allUsers
+        allUsers: state.adminUser.userlist
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      allUsers: () => dispatch(allUsers())
+      getAllUsers: () => dispatch(fetchAllUsers())
     };
 };
 
-export default connect()(allUsersView);
+export default connect(mapStateToProps,mapDispatchToProps)(allUsersView);

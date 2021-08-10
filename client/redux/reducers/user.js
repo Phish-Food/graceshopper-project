@@ -16,21 +16,22 @@ const getUser = user => {
     };
 }
 
-const fetchAllUsers = () => {
-  return (dispatch, getState) => {
-    return axios.get("/api/users")
-        .then(response => {
-            dispatch({
-                type: GET_ALL_USERS,
-                users: response.data
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });
-};
-}
-
+export const fetchAllUsers = () => {
+    return (dispatch, getState) => {
+        console.log('this does happen!')
+      return axios.get("/api/users")
+          .then(response => {
+              console.log('response',response.data)
+              dispatch({
+                  type: GET_ALL_USERS,
+                  allusers: response.data
+              });
+          })
+          .catch(error => {
+              console.log(error);
+          });
+  };
+  }
 
 const removeUser = () => {
     return {
@@ -53,11 +54,25 @@ const updateUser = (user, value) => {
     };
 }
 
-export const me = () => async dispatch => {
-    try {
-        const response = await axios.get("/auth/me");
-        dispatch(getUser(response.data || defaultUser));
-    } catch (error) {
-        console.log(error);
-    }
+// export const me = () => async dispatch => {
+//     try {
+//         const response = await axios.get("/auth/me");
+//         dispatch(getUser(response.data || defaultUser));
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+const initialState={
+    userlist:['test'],
+    user:defaultUser
 }
+
+export default function adminReducer(state = initialState, action) {
+    switch (action.type) {
+      case GET_ALL_USERS:
+        return { ...state, userlist: action.allusers};
+      default:
+        return state;
+    }
+  }
