@@ -17,6 +17,7 @@ import All_Items from '../components/views/Item/All_Items/All_Items';
 import Item_Item from '../components/views/Item/Item_Item/Item_Item';
 import Single_Item from '../components/views/Item/Single_Item/Single_Item';
 import GuestCheckout from '../components/views/Cart/GuestCheckout/GuestCheckout';
+import Single_GuestCart from '../components/views/Cart/Single_GuestCart/Single_GuestCart';
 
 const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 	useEffect(() => {
@@ -70,6 +71,11 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth }) => {
 						exact
 						path="/guestcheckout"
 						render={(props) => renderer(GuestCheckout, props)}
+					/>
+					<Route
+						exact
+						path="/guestcart"
+						render={(props) => renderer(Single_GuestCart, props)}
 					/>
 					<Route
 						exact

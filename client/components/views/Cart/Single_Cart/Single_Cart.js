@@ -48,7 +48,7 @@ const Single_Cart = ({ auth, cartItems, getCartView, userId, setCheckout }) => {
 					<button>Checkout</button>
 				</Link>
 			) : (
-				window.alert('You have no items in cart, please continue')
+				window.alert('You have no items in cart, please continue shopping!')
 			)}
 		</StyledSingle_Cart>
 	);

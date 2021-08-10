@@ -1,43 +1,57 @@
 const router = require('express').Router();
+const { createDispatchHook } = require('react-redux');
 const {
 	db,
 	models: { Cart, Item, CartItem },
 } = require('../db');
 
-router.post('/:itemId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
 	try {
-		const { quantity } = req.query;
-		const { itemId } = req.params;
+		console.log('this is req.body', req.body);
 
-		const item = await Item.findByPk(itemId);
-		const cart = carts.find((cart) => cart.status === 'Cart');
-		await CartItem.create({
-			cartId: cart.id,
-			itemId: item.id,
-			price: item.price,
-			quantity,
-		});
+		const items = [];
+		for (let itemId in req.body) {
+			const item = await Item.findByPk(Number(itemId));
+			item.quantity = req.body[itemId];
+			console.log('item', item);
+			console.log('req.body[itemId]', req.body[itemId]);
+			items.push({
+				id: itemId,
+				name: item.name,
+				quantity: req.body[itemId],
+				price: item.price,
+				stock: item.stock,
+				image: item.imageUrl,
+			});
+		}
 
-		// await cart.setUser(user.id);
-		// await user.addCart(cart.id);
-
-		res.send(await Cart.findByPk(cart.id, { include: Item }));
-	} catch (e) {
-		next(e);
+		res.send(items);
+	} catch (error) {
+		next(error);
 	}
 });
 
-router.put('/guestcheckout', async (req, res, next) => {
+router.put('/checkout', async (req, res, next) => {
 	try {
-		const lastCart = user.carts.find((cart) => cart.status === 'Cart');
-		const userCart = await Cart.findByPk(lastCart.id);
-
-		await userCart.update(req.body);
-		const newCart = await Cart.create();
-
-		// await newCart.setUser(user);
-		// await user.addCart(newCart);
-
+		const guestItems = req.body;
+		const totalprice = guestItems.reduce((price, item) => {
+			return (price += item.price);
+		}, 0);
+		await Cart.create({
+			status: 'Purchased',
+			totalprice,
+		});
+		guestItems.forEach(async (item) => {
+			let newStock = item.stock - item.quantity;
+			await Item.update(
+				{ stock: newStock },
+				{
+					where: {
+						id: item.id,
+					},
+				}
+			);
+		});
 		res.send(204);
 	} catch (e) {
 		next(e);

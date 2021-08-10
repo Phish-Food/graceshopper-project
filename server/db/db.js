@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('./config');
 
-// const pkg = require("../../package.json");
+// const pkg = require('../../package.json');
 // const db = new Sequelize(`postgres://localhost:5432/${pkg.name}`);
 
 const db = new Sequelize({
