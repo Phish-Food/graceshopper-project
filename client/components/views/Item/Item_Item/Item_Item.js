@@ -119,7 +119,7 @@ const mapStateToProps = (state) => {
     guestCartItems: state.cartItems.guestCartItems,
     isLoggedin,
   };
-};
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
