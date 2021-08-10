@@ -86,7 +86,7 @@ const Item_Item = ({
 
 const mapStateToProps = (state) => {
 	const { auth } = state.auth;
-	const { isLoggedin } = !!auth.id;
+	const isLoggedin  = !!auth.id;
 	return {
 		cartItems: state.cartItems.cartItems,
 		isLoggedin,
