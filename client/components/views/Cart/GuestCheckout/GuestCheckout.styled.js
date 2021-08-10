@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const StyledCheckout = styled.section`
+export const StyledGuestCheckout = styled.section`
 	div {
-		
+
 		width: 300px;
 		margin: 10px
-		
+
 		flex-direction: column;
 		align-items: flex-start;
 	}
@@ -18,5 +18,3 @@ export const StyledCheckout = styled.section`
 		margin-bottom: 20px;
 	}
 `;
-
-export default StyledCheckout;

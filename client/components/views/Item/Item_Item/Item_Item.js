@@ -1,24 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { StyledItem_Item } from './Item_Item.styled';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { StyledItem_Item } from "./Item_Item.styled";
+import { Link } from "react-router-dom";
 import {
-	fetchCart,
-	setToCart,
-	setUpdateToCart,
-	setToGuestCart,
-} from '../../../../redux/reducers/singlecart';
+  fetchCart,
+  setToCart,
+  setUpdateToCart,
+  setToGuestCart,
+  setUpdateToGuestCart,
+} from "../../../../redux/reducers/singlecart";
 
 const Item_Item = ({
-	auth,
-	item,
-	addToCart,
-	cartItems,
-	updateCart,
-	getCart,
-	addToGuestCart,
-	isLoggedin,
+  auth,
+  item,
+  addToCart,
+  cartItems,
+  updateCart,
+  getCart,
+  addToGuestCart,
+  updateGuestCart,
+  guestCartItems,
+  isLoggedin,
 }) => {
   // const getAverage = (reviews) => {
   //   if (!reviews.length) {
@@ -33,21 +36,45 @@ const Item_Item = ({
   useEffect(() => {
     // getCart(auth.id);
   }, []);
-  const initQuantity = cartItems.find((cartItem) => cartItem.id === item.id);
-  console.log(initQuantity);
-  const [quantity, setQuantity] = useState(
-    (initQuantity && initQuantity["cart-item"].quantity) || 1
-  );
+  let initState;
+  let initQuantity;
+  if (isLoggedin) {
+    initQuantity =
+      cartItems && cartItems.find((cartItem) => cartItem.id === item.id);
+    initState = (initQuantity && initQuantity["cart-item"].quantity) || 1;
+  } else {
+    const guestCartItems =
+      JSON.parse(window.localStorage.getItem("guestcart")) || {};
+
+    initQuantity = guestCartItems[item.id];
+    initState = initQuantity || 1;
+  }
+
+  const [quantity, setQuantity] = useState(initState);
 
   const handleClick = () => {
-  if (isLoggedin) {
-			addToCart(item.id, quantity);
-		} else {
-			addToGuestCart(item.id, quantity);
-		}
+    console.log(isLoggedin, "This should be true when logged in");
+    if (isLoggedin) {
+      addToCart(item.id, quantity);
+    } else {
+      addToGuestCart(item.id, quantity);
+    }
   };
   const handleUpdate = () => {
-    updateCart(item.id, quantity);
+    if (isLoggedin) {
+      updateCart(item.id, quantity);
+    } else {
+      updateGuestCart(item.id, quantity);
+    }
+  };
+  const tester = () => {
+    if (isLoggedin) {
+      return cartItems && cartItems.find((cartitem) => cartitem.id === item.id);
+    } else {
+      const guestCartItems =
+        JSON.parse(window.localStorage.getItem("guestcart")) || {};
+      return guestCartItems[item.id] !== undefined;
+    }
   };
   return (
     <StyledItem_Item>
@@ -74,7 +101,7 @@ const Item_Item = ({
         )}
         {!item.stock ? (
           <p>Out of Stock</p>
-        ) : cartItems.find((cartitem) => cartitem.id === item.id) ? (
+        ) : tester() ? (
           <button onClick={handleUpdate}>Update Cart</button>
         ) : (
           <button onClick={handleClick}>Add to Cart</button>
@@ -85,29 +112,33 @@ const Item_Item = ({
 };
 
 const mapStateToProps = (state) => {
-	const { auth } = state.auth;
-	const { isLoggedin } = !!auth.id;
-	return {
-		cartItems: state.cartItems.cartItems,
-		isLoggedin,
-	};
+  const { auth } = state.auth;
+  const isLoggedin = !!auth.id;
+  return {
+    cartItems: state.cartItems.cartItems,
+    guestCartItems: state.cartItems.guestCartItems,
+    isLoggedin,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		addToCart: (itemId, quantity) => {
-			dispatch(setToCart(itemId, quantity));
-		},
-		updateCart: (itemId, quantity) => {
-			dispatch(setUpdateToCart(itemId, quantity));
-		},
-		getCart: (id) => {
-			dispatch(fetchCart(id));
-		},
-		addToGuestCart: (itemId, quantity) => {
-			dispatch(setToGuestCart(itemId, quantity));
-		},
-	};
+  return {
+    addToCart: (itemId, quantity) => {
+      dispatch(setToCart(itemId, quantity));
+    },
+    updateCart: (itemId, quantity) => {
+      dispatch(setUpdateToCart(itemId, quantity));
+    },
+    updateGuestCart: (itemId, quantity) => {
+      dispatch(setUpdateToGuestCart(itemId, quantity));
+    },
+    getCart: (id) => {
+      dispatch(fetchCart(id));
+    },
+    addToGuestCart: (itemId, quantity) => {
+      dispatch(setToGuestCart(itemId, quantity));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item_Item);
