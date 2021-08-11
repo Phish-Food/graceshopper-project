@@ -4,12 +4,15 @@ import { connect } from "react-redux";
 import { StyledItem_Item } from "./Item_Item.styled";
 import { Link } from "react-router-dom";
 import {
-	fetchCart,
-	setToCart,
-	setUpdateToCart,
-	setToGuestCart,
+
+  fetchCart,
+  setToCart,
+  setUpdateToCart,
+  setToGuestCart,
+  setUpdateToGuestCart,
   editItemThunk,
-} from '../../../../redux/reducers/singlecart';
+} from "../../../../redux/reducers/singlecart";
+import Image from "../../../utils/ImageComponent/Image";
 import { deleteItemThunk } from '../../../../redux/reducers/item';
 import history from "../../../../utils/history"
 
@@ -93,7 +96,11 @@ const Item_Item = ({
       <header>
         <section id="item-section">
           <Link to={`/items/${item.id}`}>
-            <img src={item.imageUrl} />
+            {/* <img src={item.imageUrl} /> */}
+            <Image
+              url={item.imageUrl}
+              size={{ height: "300px", width: "150px" }}
+            />
           </Link>
         </section>
       </header>

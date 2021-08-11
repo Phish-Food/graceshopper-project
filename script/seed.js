@@ -13,15 +13,20 @@ const {
   adjectives,
   colors,
 } = require("unique-names-generator");
-
-const image_finder = require("image-search-engine");
-async function printUrl(query) {
-  return await image_finder.find(query);
-}
+const fs = require("fs");
+// const theItems = require("./test");
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
-
+  const theItems = [];
+  await fs.readFile(__dirname + "/data.json", (err, data) => {
+    if (err) throw err;
+    let items = JSON.parse(data);
+    for (let item in items) {
+      theItems.push(items[item]);
+      console.log(items[item]);
+    }
+  });
   const myDB = {
     users: (() =>
       [...Array(10).keys()].map((_) => {
@@ -39,53 +44,18 @@ async function seed() {
           role: "Customer",
         };
       }))(),
-    carts: (() =>
-      [...Array(1).keys()].map((_) => {
-        return {};
-      }))(),
-    items: (() =>
-      [...Array(10).keys()].map((_, i) => {
-        return {
-          name: uniqueNamesGenerator({
-            dictionaries: [starWars],
-          }),
-          stock: 10,
-          price: 1099,
-          description: `My ${uniqueNamesGenerator({
-            dictionaries: [adjectives],
-          })} description`,
-        };
-      }))(),
-    reviews: (() =>
-      [...Array(10).keys()].map((_) => {
-        return {
-          rating: Math.floor(Math.random() * 5 + 1),
-          reviewtext: `this item is ${uniqueNamesGenerator({
-            dictionaries: [adjectives],
-          })}`,
-        };
-      }))(),
   };
-  const { users, carts, items, reviews } = myDB;
+  const { users } = myDB;
 
   const allUsers = await User.bulkCreate(users, {
     returning: true,
   });
-  //const allCarts = await Cart.bulkCreate(carts, { returning: true });
-  const allItems = await Item.bulkCreate(items, {
+
+  const allItems = await Item.bulkCreate(theItems, {
     returning: true,
   });
 
-  const allReviews = await Review.bulkCreate(reviews, {
-    returning: true,
-  });
-
-  const [item1] = allItems;
-  //const [user1] = allUsers;
-  //const [cart1] = allCarts;
-  const quantity = 2;
-
-  const adminUser = User.create({
+  const adminUser = await User.create({
     firstName: "Ray",
     lastName: "Tam",
     username: `RayTam@gmail.com`,
@@ -93,42 +63,9 @@ async function seed() {
     role: "Admin",
   });
 
-  // allUsers.forEach(async (user)=>{
-  //   console.log('user',user)
-  //   const randomreview = allReviews[Math.floor((Math.random()*allReviews.length-1)+1)]
-  //   console.log('random',randomreview)
-  //   await user.addReview(randomreview)
-  // })
-
-  allReviews.forEach(async (review) => {
-    const randomUser =
-      allUsers[Math.floor(Math.random() * (allUsers.length - 1) + 1)];
-
-    await review.setUser(randomUser);
-  });
-
-  // allItems.forEach(async (item)=>{
-
-  //   const randomreview = allReviews[Math.floor((Math.random()*(allReviews.length))-1)]
-
-  //   await item.addReview(randomreview)
-  // })
-
-  await item1.addReviews(allReviews);
-  // await CartItem.create({
-  //   cartId: cart1.id,
-  //   itemId: item1.id,
-  //   price: item1.price,
-  //   quantity,
-  // });
-
-  // await cart1.setUser(user1);
-  // await user1.addCart(cart1);
-  // await cart1.addItems(allItems);
-
-  // console.log("cart", cart1.dollars);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
+  console.log(theItems);
   return {
     users: {
       cody: users[0],

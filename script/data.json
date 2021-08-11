@@ -1,0 +1,37 @@
+{
+  "1": {
+    "name": "The Mandalorian and The Child (Deluxe)",
+    "price": "31500",
+    "description": "His body is shielded by beskar armor, his face hidden behind a T-visored mask, and his past is wrapped in mystery. No one is quite sure who this well-equipped stranger is. The Mandalorian is battle-worn and tight-lipped, a formidable bounty hunter in an increasingly dangerous galaxy. His extraordinary adventure in the galaxy with the fans’ beloved alien foundling in the first-ever live-action Star Wars series has been highly acclaimed around the globe!",
+    "stock": "15",
+    "imageUrl": "/the-mandalorian-and-the-child-deluxe_star-wars_silo.png"
+  },
+  "2": {
+    "name": "Kylo Ren",
+    "price": "25100",
+    "description": "The son of Han Solo and Leia Organa, Ben Solo was seduced by the dark side of the Force. and renamed himself Kylo Ren, becoming the First Order’s champion and Supreme Leader Snoke’s student. Kylo killed his father and seeks to destroy his mother’s Resistance and the remnants of the Jedi Order. Though a servant of the dark side, he still struggles against the pull of the light side of the Force.",
+    "stock": "20",
+    "imageUrl": "/kylo-ren_star-wars_silo.png"
+  },
+  "3": {
+    "name": "Rey and D-O",
+    "price": "24300",
+    "description": "A scavenger toughened by life in Jakku’s harsh deserts, Rey has been drawn into a galaxy-spanning conflict and learned that her life is being shaped by the mysterious power of the Force. She seeks out Luke Skywalker, the lost Jedi Master, in hopes that he will aid the Resistance against the First Order and help her control her growing powers. But when that quest ends in disappointment, Rey must find a new way forward.",
+    "stock": "20",
+    "imageUrl": "/rey-and-d-o_star-wars_silo.png"
+  },
+  "4": {
+    "name": "Baby Yoda",
+    "price": "41000",
+    "description": "The surprise debut of the Child, a mysterious alien pursued by bounty hunters on behalf of Imperial interests, was revealed in the premiere episode of The Mandalorian series and instantly became one of the favorite characters among many Star Wars fans young and old around the world!",
+    "stock": "20",
+    "imageUrl": "/the-child_star-wars_silo.png"
+  },
+  "5": {
+    "name": "Obi-Wan Kenobi",
+    "price": "26000",
+    "description": "Obi-Wan comes with a unique, tailored fabric costume featuring his Jedi tunic with tabards, pants, and sash, his Jedi belt, a sleeveless robe, and a nomad pack that he carries with him across the wastes of Tatooine. The figure comes with 3 sets of hands including force hands, fists, and grip hands, as well as an additional right trigger hand for a variety of action poses.",
+    "stock": "20",
+    "imageUrl": "/obi-wan-kenobi_star-wars_silo.png"
+  }
+}

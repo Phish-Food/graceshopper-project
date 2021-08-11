@@ -21,7 +21,7 @@ const Cart_Item = ({ item, deleteCartItem, updateCart }) => {
         <h3>{item.name}</h3>
 
         <p>Price: {item.dollars}</p>
-        <p>Description: {item.description}</p>
+        {/* <p>Description: {item.description}</p> */}
         {/* <p>Reviews: {getAverage(item.reviews)}</p> */}
         <input
           type="number"
