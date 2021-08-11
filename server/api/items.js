@@ -52,4 +52,14 @@ router.post('/:itemId', requireToken, async (req, res, next) => {
 	}
 });
 
+router.post('/', async (req, res, next) => {
+	try {
+		const newItem = req.body;
+		const createdItem = await Item.create(newItem);
+		res.send(createdItem);
+	} catch (error) {
+		next(error);
+	}
+});
+
 module.exports = router;

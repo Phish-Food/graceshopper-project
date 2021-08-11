@@ -1,7 +1,9 @@
 import axios from 'axios';
+import history from '../../utils/history';
 
 const GOT_ITEMS = 'GOT_ITEMS';
 const GOT_SINGLE_ITEM = 'GOT_SINGLE_ITEM';
+const ADD_ITEM = 'ADD_ITEM';
 
 const setItems = (items) => {
 	return {
@@ -13,6 +15,13 @@ const setItems = (items) => {
 const setSingleItem = (item) => {
 	return {
 		type: GOT_SINGLE_ITEM,
+		item,
+	};
+};
+
+const addItem = (item) => {
+	return {
+		type: ADD_ITEM,
 		item,
 	};
 };
@@ -39,6 +48,18 @@ export const fetchSingleItemThunk = (id) => {
 	};
 };
 
+export const addItemThunk = (form) => {
+	return async (dispatch) => {
+		try {
+			const { data } = await axios.post(`/api/items/`, form);
+			dispatch(addItem(data));
+			history.push('/');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
 const initialState = {
 	items: [],
 	item: {},
@@ -49,6 +70,8 @@ export default function itemsReducer(state = initialState, action) {
 			return { ...state, items: action.items };
 		case GOT_SINGLE_ITEM:
 			return { ...state, item: action.item };
+		case ADD_ITEM:
+			return { ...state, items: [...state.items, action.item] };
 		default:
 			return state;
 	}
