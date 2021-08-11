@@ -7,7 +7,7 @@ export const Loading = () => {
   return (
     <StyledLoading>
       <Image
-        url={"/dummy_logo.png"}
+        url={"/Star_Wars-Logo.wine.png"}
         size={{ height: "300px", width: "300px" }}
         logo={true}
       />
