@@ -8,7 +8,11 @@ import {
 	setToCart,
 	setUpdateToCart,
 	setToGuestCart,
+  editItemThunk,
 } from '../../../../redux/reducers/singlecart';
+import { deleteItemThunk } from '../../../../redux/reducers/item';
+import history from "../../../../utils/history"
+
 
 const Item_Item = ({
 	auth,
@@ -19,6 +23,10 @@ const Item_Item = ({
 	getCart,
 	addToGuestCart,
 	isLoggedin,
+  isAdmin,
+  deleteItem,
+  editItem,
+
 }) => {
   // const getAverage = (reviews) => {
   //   if (!reviews.length) {
@@ -46,10 +54,18 @@ const Item_Item = ({
 			addToGuestCart(item.id, quantity);
 		}
   };
+
+  const deleteClick = () =>{
+    deleteItem(item.id)
+  }
   const handleUpdate = () => {
     updateCart(item.id, quantity);
   };
+  
+
+  
   return (
+    
     <StyledItem_Item>
       <header>
         <section id="item-section">
@@ -79,6 +95,11 @@ const Item_Item = ({
         ) : (
           <button onClick={handleClick}>Add to Cart</button>
         )}
+        {isAdmin?
+        <span>
+        <button onClick={deleteClick}>Delete Item</button>
+        <Link to={`/edit/${item.id}`}>Edit Item</Link></span>
+        :null}
       </div>
     </StyledItem_Item>
   );
@@ -87,9 +108,11 @@ const Item_Item = ({
 const mapStateToProps = (state) => {
 	const { auth } = state.auth;
 	const isLoggedin  = !!auth.id;
+  const isAdmin = auth.role==="Admin"?true:false
 	return {
 		cartItems: state.cartItems.cartItems,
 		isLoggedin,
+    isAdmin
 	};
 };
 
@@ -107,6 +130,9 @@ const mapDispatchToProps = (dispatch) => {
 		addToGuestCart: (itemId, quantity) => {
 			dispatch(setToGuestCart(itemId, quantity));
 		},
+    deleteItem: (id) =>{
+      dispatch(deleteItemThunk(id))
+    }
 	};
 };
 

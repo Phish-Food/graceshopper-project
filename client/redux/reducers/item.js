@@ -1,7 +1,8 @@
 import axios from 'axios';
-
+import history from "../../utils/history";
 const GOT_ITEMS = 'GOT_ITEMS';
 const GOT_SINGLE_ITEM = 'GOT_SINGLE_ITEM';
+
 
 const setItems = (items) => {
 	return {
@@ -17,8 +18,27 @@ const setSingleItem = (item) => {
 	};
 };
 
+
+export const editItemThunk = (state,id,history) => {
+
+	return async (dispatch) => {
+		try {
+	
+			await axios.put(`/api/items/${id}`,state);
+			history.push("/")
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+
+
+
+
 export const fetchAllItemsThunk = () => {
 	return async (dispatch) => {
+		console.log('this goes off')
 		try {
 			const { data } = await axios.get('/api/items');
 			dispatch(setItems(data));
@@ -38,6 +58,23 @@ export const fetchSingleItemThunk = (id) => {
 		}
 	};
 };
+
+export const deleteItemThunk = (id) => {
+	console.log(id)
+	return async (dispatch) => {
+		try {
+			console.log('this id is passed', id)
+			console.log('this thunk called')
+			await axios.delete(`/api/items/${id}`);
+			dispatch(fetchAllItemsThunk())
+
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+
 
 const initialState = {
 	items: [],
