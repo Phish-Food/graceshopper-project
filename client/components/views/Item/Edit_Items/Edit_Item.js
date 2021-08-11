@@ -9,10 +9,10 @@ export class EditItem extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        name: "",
-        stock: "",
+        name: ``,
+        stock: ``,
         description: "",
-        price: "",
+        price: ``,
       };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,8 +20,9 @@ export class EditItem extends Component {
     
     componentDidMount() {
         const itemId = this.props.match.params.itemId;
-        console.log('itemid', this.props.match.params)
+       
         this.props.getSingleItem(itemId);
+       
       }
       handleChange(evt) {
         this.setState({
@@ -42,15 +43,18 @@ export class EditItem extends Component {
         <h3>Edit: {this.props.item.name}</h3>
       <form id="item-form" onSubmit={this.handleSubmit}>
         <div>
-          <label htmlFor="name">Edit Item Name:</label>
+            
+          <label htmlFor="name">Edit Item Name ({`${this.props.item.name}`}):</label>
           <input name="name" onChange={this.handleChange} value={name} />
         </div>
         <div>
-          <label htmlFor="stock">Edit Stock:</label>
+        
+          <label htmlFor="stock">Edit Stock ({`${this.props.item.stock}`}):</label>
           <input
+          type="number"
             name="stock"
             onChange={this.handleChange}
-            value={stock}
+            value={Number(stock)}
           />
         </div>
         <div>
@@ -62,9 +66,11 @@ export class EditItem extends Component {
           />
         </div>
         <div>
-          <label htmlFor="price">Edit Price:</label>
+       
+          <label htmlFor="price">Edit Price ({`${this.props.item.price}`}):</label>
           <input
             name="price"
+            type="number"
             onChange={this.handleChange}
             value={Number(price)}
           />
