@@ -14,15 +14,20 @@ const Nav = ({ logout, login, isLoggedIn }) => {
         size={{ height: "80px", width: "120px" }}
         logo={true}
       />
-      {isLoggedIn ? (
-        <a href="#" onClick={logout}>
-          Logout
+      <div>
+        {isLoggedIn ? (
+          <a href="#" onClick={logout}>
+            Logout
+          </a>
+        ) : (
+          <a href="#" onClick={() => history.push("/login")}>
+            Login
+          </a>
+        )}
+        <a href="#" onClick={() => history.push("/signup")}>
+          Signup
         </a>
-      ) : (
-        <a href="#" onClick={() => history.push("/login")}>
-          Login
-        </a>
-      )}
+      </div>
     </StyledNav>
   );
 };
