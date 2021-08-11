@@ -147,13 +147,16 @@ export  class Single_User_Info extends React.Component {
   
 
   render() { 
-    console.log('id', this.props.match.params.userId)
-    console.log('this', this.props)  
-       return(
-           <h3>test</h3>
-       )
-      }
-    }
+    const user = this.props.user
+        return(
+      <div>
+        <h3>{user.firstName} {user.lastName}</h3>
+        <img src="https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg"></img>
+        <h3>Email: {user.username}</h3>
+        <h2>Role: {user.role} </h2>
+    </div>)
+   }
+ }
 
     const mapStateToProps = (state) => {console.log('state',state)
       return {
