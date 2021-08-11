@@ -51,15 +51,48 @@ router.post('/:itemId', requireToken, async (req, res, next) => {
 		next(error);
 	}
 });
+router.delete('/:itemId', requireToken, async (req, res, next) => {
+	try {
+		let item = await Item.findByPk(req.params.itemId);
+		await item.destroy();
+		res.send(item)
+		
+	} catch (error) {
+		next(error);
+	}
+});
+router.put('/:itemId', requireToken, async (req, res, next) => {
+	try {
+		
+		console.log('req',req.params.itemId)
 
+		let item = await Item.findByPk(req.params.itemId);
+
+		res.send(await item.update(req.body))
+    } catch (error) {
+		next(error);
+	}
+});
 router.post('/', async (req, res, next) => {
 	try {
 		const newItem = req.body;
 		const createdItem = await Item.create(newItem);
 		res.send(createdItem);
+    } catch (error) {
+		next(error);
+	}
+});
+
+router.delete('/:itemId', requireToken, async (req, res, next) => {
+	try {
+		let item = await Item.findByPk(req.params.itemId);
+		await item.destroy();
+		res.send(item)
+		
 	} catch (error) {
 		next(error);
 	}
 });
+
 
 module.exports = router;

@@ -21,6 +21,7 @@ import Item_Item from '../components/views/Item/Item_Item/Item_Item';
 import Single_Item from '../components/views/Item/Single_Item/Single_Item';
 import Checkout_Page from '../components/views/Cart/Checkout_Page/Checkout_Page';
 import AddItem from '../components/views/Admin/addItem/AddItem';
+import EditItem from "../components/views/Item/Edit_Items/Edit_Item"
 
 const Routes = ({ getMe, isLoggedIn, open, preCheck, auth, isAdmin }) => {
 	useEffect(() => {
@@ -43,7 +44,11 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth, isAdmin }) => {
 							path="/login"
 							render={(props) => renderer(Home, props)}
 						/>
-
+          <Route
+            exact
+            path="/edit/:itemId"
+            render={(props) => renderer(EditItem, props)}
+          />
 						<Route
 							exact
 							path="/addItem"

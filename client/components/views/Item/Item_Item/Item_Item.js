@@ -4,12 +4,19 @@ import { connect } from 'react-redux';
 import { StyledItem_Item } from './Item_Item.styled';
 import { Link } from 'react-router-dom';
 import {
+
 	fetchCart,
 	setToCart,
 	setUpdateToCart,
 	setToGuestCart,
 	setUpdateToGuestCart,
+  editItemThunk,
 } from '../../../../redux/reducers/singlecart';
+
+import Image from "../../../utils/ImageComponent/Image";
+import { deleteItemThunk } from '../../../../redux/reducers/item';
+import history from "../../../../utils/history"
+
 
 const Item_Item = ({
 	auth,
@@ -19,9 +26,13 @@ const Item_Item = ({
 	updateCart,
 	getCart,
 	addToGuestCart,
-	updateGuestCart,
-	guestCartItems,
-	isLoggedin,
+  isAdmin,
+  deleteItem,
+  editItem,
+  updateGuestCart,
+  guestCartItems,
+  isLoggedin,
+
 }) => {
 	// const getAverage = (reviews) => {
 	//   if (!reviews.length) {
@@ -60,6 +71,9 @@ const Item_Item = ({
 			addToGuestCart(item.id, quantity);
 		}
 	};
+  const deleteClick = () =>{
+    deleteItem(item.id)
+  }
 	const handleUpdate = () => {
 		if (isLoggedin) {
 			updateCart(item.id, quantity);
@@ -79,12 +93,16 @@ const Item_Item = ({
 	return (
 		<StyledItem_Item>
 			<header>
-				<section id="item-section">
-					<Link to={`/items/${item.id}`}>
-						<img src={item.imageUrl} />
-					</Link>
-				</section>
-			</header>
+        <section id="item-section">
+          <Link to={`/items/${item.id}`}>
+            {/* <img src={item.imageUrl} /> */}
+            <Image
+              url={item.imageUrl}
+              size={{ height: "300px", width: "150px" }}
+            />
+          </Link>
+        </section>
+      </header>
 			<div>
 				<h3>{item.name}</h3>
 				<p>Price: {item.dollars}</p>
@@ -106,6 +124,11 @@ const Item_Item = ({
 				) : (
 					<button onClick={handleClick}>Add to Cart</button>
 				)}
+        {isAdmin?
+        <span>
+        <button onClick={deleteClick}>Delete Item</button>
+        <Link to={`/edit/${item.id}`}>Edit Item</Link></span>
+        :null}
 			</div>
 		</StyledItem_Item>
 	);
@@ -113,11 +136,14 @@ const Item_Item = ({
 
 const mapStateToProps = (state) => {
 	const { auth } = state.auth;
-	const isLoggedin = !!auth.id;
+  const isAdmin = auth.role==="Admin"?true:false
+  const isLoggedin = !!auth.id;
 	return {
 		cartItems: state.cartItems.cartItems,
-		guestCartItems: state.cartItems.guestCartItems,
+    guestCartItems: state.cartItems.guestCartItems,
 		isLoggedin,
+    isAdmin
+
 	};
 };
 
@@ -129,15 +155,18 @@ const mapDispatchToProps = (dispatch) => {
 		updateCart: (itemId, quantity) => {
 			dispatch(setUpdateToCart(itemId, quantity));
 		},
-		updateGuestCart: (itemId, quantity) => {
+    updateGuestCart: (itemId, quantity) => {
 			dispatch(setUpdateToGuestCart(itemId, quantity));
 		},
-		getCart: (id) => {
+    getCart: (id) => {
 			dispatch(fetchCart(id));
 		},
 		addToGuestCart: (itemId, quantity) => {
 			dispatch(setToGuestCart(itemId, quantity));
 		},
+deleteItem: (id) =>{
+      dispatch(deleteItemThunk(id))
+    }
 	};
 };
 
