@@ -6,7 +6,7 @@ import { StyledImage } from "./Image.styled";
 const Image = ({ url, size, logo }) => {
   return (
     <StyledImage url={url} size={size} logo={logo}>
-      <figure></figure>
+      <figure style={{ margin: 0 }}></figure>
     </StyledImage>
   );
 };
