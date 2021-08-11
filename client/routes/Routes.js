@@ -19,9 +19,13 @@ import Single_User_Info from "../components/views/Admin/userinfo/userinfo";
 import All_Items from "../components/views/Item/All_Items/All_Items";
 import Item_Item from "../components/views/Item/Item_Item/Item_Item";
 import Single_Item from "../components/views/Item/Single_Item/Single_Item";
-import Checkout_Page from "../components/views/Cart/Checkout_Page/Checkout_Page";
 
-const Routes = ({ getMe, isLoggedIn, open, preCheck, auth, isAdmin }) => {
+import Checkout_Page from "../components/views/Cart/Checkout_Page/Checkout_Page"
+import EditItem from "../components/views/Item/Edit_Items/Edit_Item"
+
+
+const Routes = ({ getMe, isLoggedIn, open, preCheck, auth,isAdmin }) => {
+
   useEffect(() => {
     getMe();
   }, [isLoggedIn]);
@@ -29,8 +33,8 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth, isAdmin }) => {
   const renderer = (Component, props) => (
     <Portal {...{ Component, props, open, preCheck, auth }} />
   );
-  console.log("auth", auth.role);
-  console.log("is", isAdmin);
+  console.log('auth', auth)
+  console.log('is', isAdmin)
   return (
     <div>
       {isLoggedIn ? (
@@ -38,10 +42,21 @@ const Routes = ({ getMe, isLoggedIn, open, preCheck, auth, isAdmin }) => {
           <Switch>
             <Route exact path="/" render={(props) => renderer(Home, props)} />
             <Route
-              exact
-              path="/login"
-              render={(props) => renderer(Home, props)}
-            />
+            exact
+            path="/users"
+            render={(props) => renderer(Allusers, props)}
+          />
+            <Route
+            exact
+            path="/users/:userId"
+            render={(props) => renderer(Single_User_Info, props)}
+          />
+                  <Route
+            exact
+            path="/edit/:itemId"
+            render={(props) => renderer(EditItem, props)}
+          />
+    
 
             <Route
               exact
