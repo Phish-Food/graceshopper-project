@@ -10,7 +10,7 @@ const Nav = ({ logout, login, isLoggedIn }) => {
   return (
     <StyledNav>
       <Image
-        url={"/dummy_logo.png"}
+        url={"/Star_Wars-Logo.wine.png"}
         size={{ height: "80px", width: "120px" }}
         logo={true}
       />
@@ -19,7 +19,7 @@ const Nav = ({ logout, login, isLoggedIn }) => {
           Logout
         </a>
       ) : (
-        <a href="#" onClick={() => history.push("/")}>
+        <a href="#" onClick={() => history.push("/login")}>
           Login
         </a>
       )}
